@@ -24,8 +24,8 @@
             return $this->belongsTo('AppartmentManager\Models\Tenant');
         }
 
-        public function complaints_category()
+        public function complaints_categories()
         {
-            return $this->belongsTo('AppartmentManager\Models\ComplaintsCategory');
+            return $this->belongsToMany('AppartmentManager\Models\ComplaintsCategory');
         }
     }

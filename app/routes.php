@@ -17,6 +17,7 @@
     Route::resource('appartment', 'AppartmentManager\Controllers\Admin\AppartmentController');
     //Tenant CRUD routes
     Route::resource('tenant', 'AppartmentManager\Controllers\Admin\TenantController');
+
     //Complaints Categories CRUD routes
     Route::resource('complaints/category', 'AppartmentManager\Controllers\Admin\ComplaintsCategoryController');
     //Complaints CRUD routes
@@ -25,3 +26,8 @@
     Route::resource('admin', 'AppartmentManager\Controllers\Admin\AdminController');
     //Tenant Auth Controller
     Route::controller('tenant/auth', 'AppartmentManager\Controllers\Tenant\Auth\AuthController');
+    //Tenant Dashboard CRUD routes
+    Route::resource(
+        'tenant-dashboard',
+        'AppartmentManager\Controllers\Tenant\DashboardController'
+    );

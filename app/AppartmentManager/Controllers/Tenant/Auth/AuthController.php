@@ -1,11 +1,36 @@
 <?php namespace AppartmentManager\Controllers\Tenant\Auth;
 
+use AppartmentManager\Commands\Tenant\Auth\AuthCommand;
+use AppartmentManager\Exceptions\InvalidPasswordException;
+use AppartmentManager\Repository\Admin\TenantRepository;
+use AppartmentManager\RequestValidators\Tenant\Auth\AuthValidator;
+
 class AuthController extends \Controller
 {
 
-    public function __construct()
+    /**
+     * @var AuthCommand
+     */
+    private $authCommand;
+    /**
+     * @var AuthValidator
+     */
+    private $authValidator;
+    /**
+     * @var TenantRepository
+     */
+    private $tenantRepository;
+
+    public function __construct(
+        AuthCommand $authCommand,
+        AuthValidator $authValidator,
+        TenantRepository $tenantRepository
+    )
     {
 
+        $this->authCommand = $authCommand;
+        $this->authValidator = $authValidator;
+        $this->tenantRepository = $tenantRepository;
     }
 
     /**
@@ -25,7 +50,23 @@ class AuthController extends \Controller
      */
     public function postLogin()
     {
-        //
+        $data = \Input::only(['appartment_id', 'password']);
+
+        $validation = $this->authValidator->validate($data);
+
+        if ($validation->fails()) {
+            return \Redirect::back()->withErrors($validation)->withInput();
+        }
+
+        try {
+            $this->authCommand->execute($data);
+        } catch (InvalidPasswordException $ex) {
+            return \Redirect::back()
+                ->withMessage($ex->getMessage())
+                ->withInput();
+        }
+
+        return \Redirect::route('tenant-dashboard.index');
     }
 
 

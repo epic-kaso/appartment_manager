@@ -31,11 +31,6 @@
             return $this->tenantModel->create($data);
         }
 
-        public function read($id, $data = [])
-        {
-            // TODO: Implement read() method.
-        }
-
         public function delete($id)
         {
             // TODO: Implement delete() method.
@@ -49,5 +44,27 @@
         public function all($limit = 20)
         {
             return $this->tenantModel->simplePaginate($limit);
+        }
+
+        public function setCurrentTenant($tenant)
+        {
+            \Session::set('tenant_id', $tenant->id);
+        }
+
+        public function getCurrentTenant()
+        {
+            $id = \Session::get('tenant_id', NULL);
+            if (!$id) {
+                return NULL;
+            } else {
+                return $this->read($id);
+            }
+        }
+
+        public function read($id, $data = [])
+        {
+            if (empty($data)) {
+                return $this->tenantModel->find($id)->first();
+            }
         }
     }

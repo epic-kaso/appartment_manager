@@ -33,4 +33,9 @@
                 return $name;
             }
         }
+
+        public function complaints()
+        {
+            return $this->belongsToMany('AppartmentManager\Models\Complaint');
+        }
     }

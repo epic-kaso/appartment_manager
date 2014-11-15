@@ -1,9 +1,51 @@
 <?php namespace AppartmentManager\Controllers\Tenant;
 
+use AppartmentManager\Commands\Tenant\ComplaintsCommand;
 use AppartmentManager\Controllers\BaseController;
+use AppartmentManager\Repository\Admin\ComplaintsCategoryRepository;
+use AppartmentManager\Repository\Admin\TenantRepository;
+use AppartmentManager\Repository\Tenant\ComplaintsRepository;
+use AppartmentManager\RequestValidators\Tenant\ComplaintsValidator;
 
 class ComplaintsController extends BaseController
 {
+
+
+    private $tenantRepository;
+    /**
+     * @var ComplaintsCategoryRepository
+     */
+    private $complaintsCategoryRepository;
+    /**
+     * @var ComplaintsRepository
+     */
+    private $complaintsRepository;
+    /**
+     * @var ComplaintsValidator
+     */
+    private $complaintsValidator;
+    /**
+     * @var ComplaintsCommand
+     */
+    private $complaintsCommand;
+
+    function __construct(
+        TenantRepository $tenantRepository,
+        ComplaintsCategoryRepository $complaintsCategoryRepository,
+        ComplaintsRepository $complaintsRepository,
+        ComplaintsValidator $complaintsValidator,
+        ComplaintsCommand $complaintsCommand
+    )
+    {
+        $this->tenantRepository = $tenantRepository;
+        $this->complaintsCategoryRepository = $complaintsCategoryRepository;
+        $this->complaintsRepository = $complaintsRepository;
+        $this->complaintsValidator = $complaintsValidator;
+        $this->complaintsCommand = $complaintsCommand;
+
+        $this->beforeFilter('tenant_auth');
+    }
+
 
     /**
      * Display a listing of the resource.
@@ -12,7 +54,10 @@ class ComplaintsController extends BaseController
      */
     public function index()
     {
-        return \View::make('tenant.complaints.index');
+        $tenant = $this->tenantRepository->getCurrentTenant();
+        $complaints_categories = $this->complaintsCategoryRepository->all(NULL);
+
+        return \View::make('tenant.complaints.index', compact('tenant', 'complaints_categories'));
     }
 
 
@@ -23,7 +68,10 @@ class ComplaintsController extends BaseController
      */
     public function create()
     {
-        return \View::make('tenant.complaints.create');
+        $tenant = $this->tenantRepository->getCurrentTenant();
+        $complaints_categories = $this->complaintsCategoryRepository->all(NULL);
+
+        return \View::make('tenant.complaints.create', compact('tenant', 'complaints_categories'));
     }
 
 
@@ -34,7 +82,18 @@ class ComplaintsController extends BaseController
      */
     public function store()
     {
-        //
+        $data = \Input::only(['complaint_body', 'category_ids']);
+
+        $validation = $this->complaintsValidator->validate($data);
+
+        if ($validation->fails()) {
+            return \Redirect::back()->withInput()->withErrors($validation);
+        }
+
+        $this->complaintsCommand->execute($data);
+
+        return \Redirect::route('complaints.index')
+            ->withMessage('Created Successfully');
     }
 
 

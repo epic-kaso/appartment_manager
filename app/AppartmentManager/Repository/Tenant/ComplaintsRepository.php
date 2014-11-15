@@ -10,7 +10,7 @@
 
 
     use AppartmentManager\Models\Complaint;
-    use AppartmentManager\Models\Tenant;
+    use AppartmentManager\Repository\Admin\TenantRepository;
 
     class ComplaintsRepository extends BaseTenantRepository
     {
@@ -20,16 +20,26 @@
          * @var Complaint
          */
         private $complaintModel;
+        /**
+         * @var TenantRepository
+         */
+        private $tenantRepository;
 
-        function __construct(Complaint $complaintModel)
+        function __construct(
+            Complaint $complaintModel,
+            TenantRepository $tenantRepository
+        )
         {
             $this->complaintModel = $complaintModel;
-            $this->setTenant(Tenant::find(\Session::get('tenant_id'))->first());
+            $this->tenantRepository = $tenantRepository;
+            $this->setTenant($this->tenantRepository->getCurrentTenant());
+
         }
 
         public function create($data = [])
         {
             parent::create($data);
+
             $m = $this->complaintModel->create($data);
             $m->tenant()->associate($this->getTenant());
 

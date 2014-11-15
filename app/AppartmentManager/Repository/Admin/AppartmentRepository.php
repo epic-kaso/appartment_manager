@@ -77,4 +77,12 @@
                 return $this->appartmentModel->get();
             }
         }
+
+        public function getAppartmentByAppartmentID($appartment_id)
+        {
+            return $this->appartmentModel
+                ->where('appartment_id', $appartment_id)
+                ->with('tenant')
+                ->first();
+        }
     }

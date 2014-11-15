@@ -55,7 +55,12 @@
 
         public function all($limit = 20)
         {
-            return $this->complaintsCategoryModel->simplePaginate($limit);
+            if (!$limit) {
+                return $this->complaintsCategoryModel->get();
+            } else {
+                return $this->complaintsCategoryModel->simplePaginate($limit);
+            }
+
         }
 
         public function assignToAdmin($admin_id, ComplaintsCategory $category)

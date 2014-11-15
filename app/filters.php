@@ -77,3 +77,5 @@
             throw new Illuminate\Session\TokenMismatchException;
         }
     });
+
+    Route::filter('tenant_auth', 'AppartmentManager\Filters\Tenant\TenantFilter');

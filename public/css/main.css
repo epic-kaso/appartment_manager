@@ -20,3 +20,24 @@ h1, h2, h3, h4 {
 .table-menu {
     margin-bottom: 15px;
 }
+
+.menu-item {
+    font-size: 1.9em;
+    text-align: center;
+    display: inline-block;
+}
+
+a.menu-item-link {
+    display: inline-block;
+
+    text-decoration: none;
+    color: #000000;
+    background-color: #f2f2f2;
+    margin: 10px;
+    padding: 10px;
+}
+
+a.menu-item-link:hover {
+    color: #f2f2f2;
+    background-color: #000000;
+}
