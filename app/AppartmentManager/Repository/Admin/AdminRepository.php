@@ -31,11 +31,6 @@
             return $this->admin->create($data);
         }
 
-        public function read($id, $data = [])
-        {
-            // TODO: Implement read() method.
-        }
-
         public function delete($id)
         {
             // TODO: Implement delete() method.
@@ -72,6 +67,38 @@
         public function getSuperAdmin()
         {
             return $this->admin->where('is_super_admin', TRUE)->first();
+        }
+
+        public function getCurrentAdmin()
+        {
+            $id = \Session::get('admin_id', NULL);
+            if (!$id) {
+                return NULL;
+            } else {
+                return $this->read($id);
+            }
+        }
+
+        public function read($id, $data = [])
+        {
+            if (empty($data)) {
+                return $this->admin->find($id)->first();
+            }
+        }
+
+        public function setCurrentAdmin(Admin $admin)
+        {
+            \Session::set('admin_id', $admin->id);
+        }
+
+        public function unSetCurrentAdmin()
+        {
+            \Session::forget('admin_id');
+        }
+
+        public function getAdminByEmail($email)
+        {
+            return $this->admin->where('email', $email)->first();
         }
 
 

@@ -1,8 +1,11 @@
-<?php namespace AppartmentManager\Controllers\Tenant\Auth;
+<?php namespace AppartmentManager\Controllers\Admin\Auth;
 
+use AppartmentManager\Commands\Admin\Auth\AdminAuthCommand;
 use AppartmentManager\Commands\Tenant\Auth\AuthCommand;
 use AppartmentManager\Exceptions\InvalidPasswordException;
+use AppartmentManager\Repository\Admin\AdminRepository;
 use AppartmentManager\Repository\Admin\TenantRepository;
+use AppartmentManager\RequestValidators\Admin\Auth\AdminAuthValidator;
 use AppartmentManager\RequestValidators\Tenant\Auth\AuthValidator;
 
 class AuthController extends \Controller
@@ -19,18 +22,18 @@ class AuthController extends \Controller
     /**
      * @var TenantRepository
      */
-    private $tenantRepository;
+    private $adminRepository;
 
     public function __construct(
-        AuthCommand $authCommand,
-        AuthValidator $authValidator,
-        TenantRepository $tenantRepository
+        AdminAuthCommand $authCommand,
+        AdminAuthValidator $authValidator,
+        AdminRepository $adminRepository
     )
     {
 
         $this->authCommand = $authCommand;
         $this->authValidator = $authValidator;
-        $this->tenantRepository = $tenantRepository;
+        $this->adminRepository = $adminRepository;
     }
 
     /**
@@ -39,7 +42,7 @@ class AuthController extends \Controller
      */
     public function getLogin()
     {
-        return \View::make('tenant.auth.login');
+        return \View::make('admin.auth.login');
     }
 
 
@@ -50,7 +53,7 @@ class AuthController extends \Controller
      */
     public function postLogin()
     {
-        $data = \Input::only(['appartment_id', 'password']);
+        $data = \Input::only(['email', 'password']);
 
         $validation = $this->authValidator->validate($data);
 
@@ -66,9 +69,8 @@ class AuthController extends \Controller
                 ->withInput();
         }
 
-        return \Redirect::route('tenant-dashboard.index');
+        return \Redirect::route('admin-dashboard.index');
     }
-
 
     /**
      * Remove the specified resource from storage.
@@ -76,7 +78,7 @@ class AuthController extends \Controller
      */
     public function getForgotPassword()
     {
-        return \View::make('tenant.auth.forgot_password');
+        return \View::make('admin.auth.forgot_password');
     }
 
     public function postForgotPassword()
@@ -86,7 +88,7 @@ class AuthController extends \Controller
 
     public function getChangePassword($token)
     {
-        return \View::make('tenant.auth.change_password');
+        return \View::make('admin.auth.change_password');
     }
 
     public function postChangePassword($token)
@@ -97,9 +99,9 @@ class AuthController extends \Controller
 
     public function getLogout()
     {
-        $this->tenantRepository->unSetCurrentTenant();
+        $this->adminRepository->unSetCurrentAdmin();
 
-        return \Redirect::route('tenant-dashboard.index');
+        return \Redirect::route('admin-dashboard.index');
     }
 
 }

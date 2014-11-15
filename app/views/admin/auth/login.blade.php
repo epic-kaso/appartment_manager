@@ -4,11 +4,11 @@
 		<div class="row">
 			@include('Layouts.Partials.info')
 		    <div class="col-sm-4 col-sm-offset-4">
-		    <h1>Tenant Login</h1>
+		    	<h1>Admin Login</h1>
 		    	{{ Form::open() }}
 					<div class="form-group">
-						{{ Form::label('Appartment ID') }}
-						{{ Form::text('appartment_id',null,['class'=>'form-control']) }}
+						{{ Form::label('Email') }}
+						{{ Form::email('email',null,['class'=>'form-control']) }}
 					</div>
 
 					<div class="form-group">

@@ -22,7 +22,7 @@
                 'first_name'    => 'required',
                 'email'         => 'required|email|unique:tenants',
                 'phone'         => 'digits:11',
-                'password'      => 'required|confirmed',
+                'password' => 'required|confirmed|alpha_dash',
                 'appartment_id' => 'integer'
             ];
         }

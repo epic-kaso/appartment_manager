@@ -4,20 +4,20 @@
 		<div class="row">
 			@include('Layouts.Partials.info')
 		    <div class="col-sm-4 col-sm-offset-4">
-		    <h1>Tenant Login</h1>
 		    	{{ Form::open() }}
-					<div class="form-group">
-						{{ Form::label('Appartment ID') }}
-						{{ Form::text('appartment_id',null,['class'=>'form-control']) }}
-					</div>
 
 					<div class="form-group">
-                        {{ Form::label('Your Password') }}
+                        {{ Form::label('New Password') }}
                         {{ Form::password('password',['class'=>'form-control']) }}
                     </div>
 
+                    <div class="form-group">
+                        {{ Form::label('Confirm Password') }}
+                        {{ Form::password('password_confirmation',['class'=>'form-control']) }}
+                    </div>
+
 					<div class="form-group">
-						{{ Form::submit('Login',['class'=>'btn btn-primary']) }}
+						{{ Form::submit('Change Password',['class'=>'btn btn-primary']) }}
 					</div>
 				{{ Form::close() }}
 		    </div>

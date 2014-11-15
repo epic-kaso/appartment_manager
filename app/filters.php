@@ -79,3 +79,4 @@
     });
 
     Route::filter('tenant_auth', 'AppartmentManager\Filters\Tenant\TenantFilter');
+    Route::filter('admin_auth', 'AppartmentManager\Filters\Admin\AdminFilter');

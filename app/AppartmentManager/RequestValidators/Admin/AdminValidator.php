@@ -20,7 +20,7 @@
                 'email'          => 'required|email|unique:admins',
                 'name'           => '',
                 'phone'          => 'required|digits:11',
-                'password'       => 'required|confirmed',
+                'password' => 'required|confirmed|alpha_dash',
                 'is_super_admin' => ''
             ];
         }

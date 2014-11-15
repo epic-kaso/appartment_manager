@@ -121,7 +121,7 @@
             'Illuminate\Validation\ValidationServiceProvider',
             'Illuminate\View\ViewServiceProvider',
             'Illuminate\Workbench\WorkbenchServiceProvider',
-
+            'AppartmentManager\ServiceProviders\EventsServiceProvider'
         ),
 
         /*

@@ -67,4 +67,9 @@
                 return $this->tenantModel->find($id)->first();
             }
         }
+
+        public function unSetCurrentTenant()
+        {
+            \Session::forget('tenant_id');
+        }
     }

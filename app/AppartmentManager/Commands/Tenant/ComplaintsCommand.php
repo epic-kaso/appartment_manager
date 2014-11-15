@@ -10,6 +10,7 @@
 
 
     use AppartmentManager\Commands\Command;
+    use AppartmentManager\Events\TenantCreatesComplaint;
     use AppartmentManager\Repository\Tenant\ComplaintsRepository;
 
     class ComplaintsCommand implements Command
@@ -28,6 +29,7 @@
 
         public function execute($data = [])
         {
-            return $this->complaintsRepository->create($data);
+            $complaint = $this->complaintsRepository->create($data);
+            \Event::fire(TenantCreatesComplaint::class, compact('complaint'));
         }
     }

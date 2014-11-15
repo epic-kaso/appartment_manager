@@ -2,6 +2,7 @@
 
 use AppartmentManager\Commands\Admin\TenantCommand;
 use AppartmentManager\Controllers\BaseController;
+use AppartmentManager\Repository\Admin\AdminRepository;
 use AppartmentManager\Repository\Admin\AppartmentRepository;
 use AppartmentManager\Repository\Admin\TenantRepository;
 use AppartmentManager\RequestValidators\Admin\TenantValidator;
@@ -25,18 +26,25 @@ class TenantController extends BaseController
      * @var TenantCommand
      */
     private $tenantCommand;
+    /**
+     * @var AdminRepository
+     */
+    private $adminRepository;
 
     function __construct(
         TenantRepository $tenantRepository,
         AppartmentRepository $appartmentRepository,
         TenantValidator $tenantValidator,
-        TenantCommand $tenantCommand
+        TenantCommand $tenantCommand,
+        AdminRepository $adminRepository
     )
     {
         $this->tenantRepository = $tenantRepository;
         $this->appartmentRepository = $appartmentRepository;
         $this->tenantValidator = $tenantValidator;
         $this->tenantCommand = $tenantCommand;
+        $this->beforeFilter('admin_auth');
+        $this->adminRepository = $adminRepository;
     }
 
 
@@ -48,8 +56,9 @@ class TenantController extends BaseController
     public function index()
     {
         $tenants = $this->tenantRepository->all();
+        $admin = $this->adminRepository->getCurrentAdmin();
 
-        return \View::make('admin.tenant.index', compact('tenants'));
+        return \View::make('admin.tenant.index', compact('tenants', 'admin'));
     }
 
 
@@ -60,9 +69,10 @@ class TenantController extends BaseController
      */
     public function create()
     {
+        $admin = $this->adminRepository->getCurrentAdmin();
         $appartments = $this->appartmentRepository->getVacantAppartmentsList('appartment_id', 'id');
 
-        return \View::make('admin.tenant.create', compact('appartments'));
+        return \View::make('admin.tenant.create', compact('appartments', 'admin'));
     }
 
 

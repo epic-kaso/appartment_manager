@@ -1,36 +1,20 @@
 <?php namespace AppartmentManager\Controllers\Admin;
 
-use AppartmentManager\Commands\Admin\AdminCommand;
 use AppartmentManager\Controllers\BaseController;
 use AppartmentManager\Repository\Admin\AdminRepository;
-use AppartmentManager\RequestValidators\Admin\AdminValidator;
+use AppartmentManager\Repository\Admin\TenantRepository;
 
-class AdminController extends BaseController
+class DashboardController extends BaseController
 {
 
-
     /**
-     * @var AdminRepository
+     * @var TenantRepository
      */
     private $adminRepository;
-    /**
-     * @var AdminValidator
-     */
-    private $adminValidator;
-    /**
-     * @var AdminCommand
-     */
-    private $adminCommand;
 
-    function __construct(
-        AdminRepository $adminRepository,
-        AdminValidator $adminValidator,
-        AdminCommand $adminCommand
-    )
+    function __construct(AdminRepository $adminRepository)
     {
         $this->adminRepository = $adminRepository;
-        $this->adminValidator = $adminValidator;
-        $this->adminCommand = $adminCommand;
         $this->beforeFilter('admin_auth');
     }
 
@@ -42,10 +26,9 @@ class AdminController extends BaseController
      */
     public function index()
     {
-        $admins = $this->adminRepository->all();
         $admin = $this->adminRepository->getCurrentAdmin();
 
-        return \View::make('admin.admin.index', compact('admins', 'admin'));
+        return \View::make('admin.dashboard', compact('admin'));
     }
 
 
@@ -56,9 +39,7 @@ class AdminController extends BaseController
      */
     public function create()
     {
-        $admin = $this->adminRepository->getCurrentAdmin();
-
-        return \View::make('admin.admin.create', compact('admin'));
+        //
     }
 
 
@@ -69,22 +50,7 @@ class AdminController extends BaseController
      */
     public function store()
     {
-        $data = \Input::only(['name', 'email', 'phone', 'is_super_admin', 'password', 'password_confirmation']);
-        $data['is_super_admin'] = \Input::get('is_super_admin', FALSE) == FALSE ? FALSE : TRUE;
-
-
-        $validation = $this->adminValidator->validate($data);
-
-        if ($validation->fails()) {
-            return \Redirect::back()->withInput()->withErrors($validation);
-        }
-
-        unset($data['password_confirmation']);
-
-        $this->adminCommand->execute($data);
-
-        return \Redirect::route('admin.index')->withMessage('Created Successfully');
-
+        //
     }
 
 

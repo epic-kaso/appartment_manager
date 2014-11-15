@@ -2,6 +2,7 @@
 
 use AppartmentManager\Commands\Admin\AppartmentCommand;
 use AppartmentManager\Controllers\BaseController;
+use AppartmentManager\Repository\Admin\AdminRepository;
 use AppartmentManager\Repository\Admin\AppartmentRepository;
 use AppartmentManager\RequestValidators\Admin\AppartmentValidator;
 
@@ -21,21 +22,29 @@ class AppartmentController extends BaseController
      * @var AppartmentRepository
      */
     private $appartmentRepository;
+    /**
+     * @var AdminRepository
+     */
+    private $adminRepository;
 
     /**
      * @param AppartmentCommand $appartmentCommand
      * @param AppartmentValidator $appartmentValidator
      * @param AppartmentRepository $appartmentRepository
+     * @param AdminRepository $adminRepository
      */
     function __construct(
         AppartmentCommand $appartmentCommand,
         AppartmentValidator $appartmentValidator,
-        AppartmentRepository $appartmentRepository
+        AppartmentRepository $appartmentRepository,
+        AdminRepository $adminRepository
     )
     {
         $this->appartmentCommand = $appartmentCommand;
         $this->appartmentValidator = $appartmentValidator;
         $this->appartmentRepository = $appartmentRepository;
+        $this->beforeFilter('admin_auth');
+        $this->adminRepository = $adminRepository;
     }
 
 
@@ -48,8 +57,9 @@ class AppartmentController extends BaseController
     {
         $limit = \Input::get('size', 20);
         $appartments = $this->appartmentRepository->all($limit);
+        $admin = $this->adminRepository->getCurrentAdmin();
 
-        return \View::make('admin.appartment.index', compact('appartments'))
+        return \View::make('admin.appartment.index', compact('appartments', 'admin'))
             ->with('message', \Session::get('message'));
     }
 
@@ -61,7 +71,9 @@ class AppartmentController extends BaseController
      */
     public function create()
     {
-        return \View::make('admin.appartment.create');
+        $admin = $this->adminRepository->getCurrentAdmin();
+
+        return \View::make('admin.appartment.create', compact('admin'));
     }
 
 

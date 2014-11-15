@@ -55,9 +55,9 @@ class ComplaintsController extends BaseController
     public function index()
     {
         $tenant = $this->tenantRepository->getCurrentTenant();
-        $complaints_categories = $this->complaintsCategoryRepository->all(NULL);
+        $complaints = $this->complaintsRepository->all(NULL);
 
-        return \View::make('tenant.complaints.index', compact('tenant', 'complaints_categories'));
+        return \View::make('tenant.complaints.index', compact('tenant', 'complaints'));
     }
 
 

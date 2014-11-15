@@ -39,10 +39,13 @@
         public function create($data = [])
         {
             parent::create($data);
-
-            $m = $this->complaintModel->create($data);
+            $category_ids = $data['category_ids'];
+            $m = $this->complaintModel->create(['description' => $data['complaint_body']]);
             $m->tenant()->associate($this->getTenant());
-
+            foreach ($category_ids as $id) {
+                $m->complaints_categories()->attach($id);
+            }
+            $m->save();
             return $m;
         }
 
@@ -64,5 +67,12 @@
         public function all($limit = 20)
         {
             parent::all($limit);
+
+            return $this->complaintModel()->with('comments')->simplePaginate($limit);
+        }
+
+        private function complaintModel()
+        {
+            return $this->complaintModel->where('tenant_id', $this->getTenant()->id);
         }
     }

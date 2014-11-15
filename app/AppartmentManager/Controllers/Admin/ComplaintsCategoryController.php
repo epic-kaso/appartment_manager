@@ -36,6 +36,7 @@ class ComplaintsCategoryController extends BaseController
         $this->adminRepository = $adminRepository;
         $this->categoryValidator = $categoryValidator;
         $this->complaintsCategoryCommand = $complaintsCategoryCommand;
+        $this->beforeFilter('admin_auth');
     }
 
     /**
@@ -46,8 +47,9 @@ class ComplaintsCategoryController extends BaseController
     public function index()
     {
         $categories = $this->complaintsCategoryRepository->all();
+        $admin = $this->adminRepository->getCurrentAdmin();
 
-        return \View::make('admin.complaints.category.index', compact('categories'));
+        return \View::make('admin.complaints.category.index', compact('categories', 'admin'));
     }
 
 
@@ -58,9 +60,10 @@ class ComplaintsCategoryController extends BaseController
      */
     public function create()
     {
+        $admin = $this->adminRepository->getCurrentAdmin();
         $admins = $this->adminRepository->getAdminsAsList('email', 'id', TRUE);
 
-        return \View::make('admin.complaints.category.create', compact('admins'));
+        return \View::make('admin.complaints.category.create', compact('admins', 'admin'));
     }
 
 
