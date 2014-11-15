@@ -1,0 +1,22 @@
+body {
+    font-family: 'Open Sans', "Helvetica Neue Light", "Lucida Grande", "Calibri", "Arial", sans-serif;
+    font-weight: 300;
+}
+
+.nav, .pagination, .carousel, .panel-title a {
+    cursor: pointer;
+}
+
+* {
+    font-family: 'Open Sans', "Helvetica Neue Light", "Lucida Grande", "Calibri", "Arial", sans-serif;
+    font-weight: 300;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Open Sans', "Helvetica Neue Light", "Lucida Grande", "Calibri", "Arial", sans-serif;
+    font-weight: 300;
+}
+
+.table-menu {
+    margin-bottom: 15px;
+}
