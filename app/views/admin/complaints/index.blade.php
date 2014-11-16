@@ -34,7 +34,7 @@
             		            @foreach($responses as $response)
             		                <tr>
             		                    <td>{{ $response->complaint->id }}</td>
-            		                    <td><p>{{ $response->complaint->description }}</p></td>
+            		                    <td><p><a href="{{ route('admin-complaints.show',['id'=>$response->complaint->id]) }}">{{ $response->complaint->description }}</a></p></td>
             		                    <td> {{ $response->complaint->present('complaint_categories')}}</td>
             		                    <td>
             		                        <span class="label label-{{ $response->complaint->is_handled ? 'success': 'warning' }}">

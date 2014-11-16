@@ -55,9 +55,20 @@
             return $m;
         }
 
-        public function read($id, $data = [])
+        public function read($id, $is_tenant = TRUE, $data = [])
         {
             parent::read($id, $data);
+            if ($is_tenant) {
+                return $this->complaintModel()->findOrFail($id);
+            } else {
+                return $this->complaintModel->findOrFail($id);
+            }
+
+        }
+
+        private function complaintModel()
+        {
+            return $this->complaintModel->where('tenant_id', $this->getTenant()->id);
         }
 
         public function delete($id)
@@ -75,10 +86,5 @@
             parent::all($limit);
 
             return $this->complaintModel()->with('comments')->simplePaginate($limit);
-        }
-
-        private function complaintModel()
-        {
-            return $this->complaintModel->where('tenant_id', $this->getTenant()->id);
         }
     }

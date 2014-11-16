@@ -9,6 +9,7 @@
     namespace AppartmentManager\EventListeners;
 
 
+    use AppartmentManager\Events\AdminHandlesComplaint;
     use AppartmentManager\Events\TenantCreatesComplaint;
     use AppartmentManager\Models\Complaint;
     use AppartmentManager\Notifications\NotificationManager;
@@ -53,11 +54,27 @@
 
         }
 
+        public function onAdminHandlesComplaint($complaint_id)
+        {
+            $complaint = Complaint::find($complaint_id);
+
+            $message = "Your Complaint, '{$complaint->description}', has been taken care of.";
+
+            $tenant = $complaint->tenant;
+
+            $this->notificationManager->sendEmail($tenant->email, 'Complaint Response', $message, 'complaints@tenantmanger.com');
+        }
+
         public function subscribe($events)
         {
             $events->listen(
                 TenantCreatesComplaint::class,
                 'AppartmentManager\EventListeners\ComplaintsEventListener@onTenantCreatesComplaint'
+            );
+
+            $events->listen(
+                AdminHandlesComplaint::class,
+                'AppartmentManager\EventListeners\ComplaintsEventListener@onAdminHandlesComplaint'
             );
         }
     }

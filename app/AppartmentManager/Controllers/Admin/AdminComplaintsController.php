@@ -10,20 +10,29 @@
 
 
     use AppartmentManager\Controllers\BaseController;
+    use AppartmentManager\Events\AdminHandlesComplaint;
     use AppartmentManager\Repository\Admin\AdminRepository;
+    use AppartmentManager\Repository\Tenant\ComplaintsRepository;
 
     class AdminComplaintsController extends BaseController
     {
 
 
         private $adminRepository;
+        /**
+         * @var ComplaintsRepository
+         */
+        private $complaintsRepository;
 
         function __construct(
-            AdminRepository $adminRepository
+            AdminRepository $adminRepository,
+            ComplaintsRepository $complaintsRepository
         )
         {
-            $this->adminRepository = $adminRepository;
+
             $this->beforeFilter('admin_auth');
+            $this->complaintsRepository = $complaintsRepository;
+            $this->adminRepository = $adminRepository;
         }
 
 
@@ -51,8 +60,9 @@
         public function show($id)
         {
             $admin = $this->adminRepository->getCurrentAdmin();
+            $complaint = $this->complaintsRepository->read($id, FALSE);
 
-            return \View::make('tenant.complaints.show', compact('admin'));
+            return \View::make('admin.complaints.show', compact('admin', 'complaint'));
         }
 
 
@@ -76,7 +86,16 @@
          */
         public function update($id)
         {
-            //
+            $complaint = $this->complaintsRepository->read($id, FALSE);
+            $complaint->is_handled = 1;
+            if ($complaint->save()) {
+                \Event::fire(AdminHandlesComplaint::class, ['complaint_id' => $id]);
+
+                return \Redirect::route('admin-complaints.show', ['id' => $id]);
+            } else {
+                echo 'error occured';
+            }
+
         }
 
 
