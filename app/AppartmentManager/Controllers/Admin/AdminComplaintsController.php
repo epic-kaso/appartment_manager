@@ -9,50 +9,21 @@
     namespace AppartmentManager\Controllers\Admin;
 
 
-    use AppartmentManager\Commands\Tenant\ComplaintsCommand;
     use AppartmentManager\Controllers\BaseController;
     use AppartmentManager\Repository\Admin\AdminRepository;
-    use AppartmentManager\Repository\Admin\ComplaintsCategoryRepository;
-    use AppartmentManager\Repository\Tenant\ComplaintsRepository;
-    use AppartmentManager\RequestValidators\Tenant\ComplaintsValidator;
 
     class AdminComplaintsController extends BaseController
     {
 
 
         private $adminRepository;
-        /**
-         * @var ComplaintsCategoryRepository
-         */
-        private $complaintsCategoryRepository;
-        /**
-         * @var ComplaintsRepository
-         */
-        private $complaintsRepository;
-        /**
-         * @var ComplaintsValidator
-         */
-        private $complaintsValidator;
-        /**
-         * @var ComplaintsCommand
-         */
-        private $complaintsCommand;
 
         function __construct(
-            AdminRepository $adminRepository,
-            ComplaintsCategoryRepository $complaintsCategoryRepository,
-            ComplaintsRepository $complaintsRepository,
-            ComplaintsValidator $complaintsValidator,
-            ComplaintsCommand $complaintsCommand
+            AdminRepository $adminRepository
         )
         {
             $this->adminRepository = $adminRepository;
-            $this->complaintsCategoryRepository = $complaintsCategoryRepository;
-            $this->complaintsRepository = $complaintsRepository;
-            $this->complaintsValidator = $complaintsValidator;
-            $this->complaintsCommand = $complaintsCommand;
-
-            $this->beforeFilter('tenant_auth');
+            $this->beforeFilter('admin_auth');
         }
 
 
@@ -63,10 +34,11 @@
          */
         public function index()
         {
-            $complaints = $this->complaintsRepository->all(NULL);
             $admin = $this->adminRepository->getCurrentAdmin();
+            $responses = $this->adminRepository->getComplaintsForAdmin($admin);
 
-            return \View::make('tenant.complaints.index', compact('admin', 'complaints'));
+            //dd($responses->toJson());
+            return \View::make('admin.complaints.index', compact('admin', 'responses'));
         }
 
 

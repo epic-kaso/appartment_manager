@@ -30,6 +30,6 @@
         public function execute($data = [])
         {
             $complaint = $this->complaintsRepository->create($data);
-            \Event::fire(TenantCreatesComplaint::class, compact('complaint'));
+            \Event::fire(TenantCreatesComplaint::class, ['complaint_id' => $complaint->id]);
         }
     }

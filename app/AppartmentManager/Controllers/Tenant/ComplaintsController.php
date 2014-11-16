@@ -2,6 +2,7 @@
 
 use AppartmentManager\Commands\Tenant\ComplaintsCommand;
 use AppartmentManager\Controllers\BaseController;
+use AppartmentManager\Repository\Admin\AdminRepository;
 use AppartmentManager\Repository\Admin\ComplaintsCategoryRepository;
 use AppartmentManager\Repository\Admin\TenantRepository;
 use AppartmentManager\Repository\Tenant\ComplaintsRepository;
@@ -34,7 +35,8 @@ class ComplaintsController extends BaseController
         ComplaintsCategoryRepository $complaintsCategoryRepository,
         ComplaintsRepository $complaintsRepository,
         ComplaintsValidator $complaintsValidator,
-        ComplaintsCommand $complaintsCommand
+        ComplaintsCommand $complaintsCommand,
+        AdminRepository $adminRepository
     )
     {
         $this->tenantRepository = $tenantRepository;
@@ -42,6 +44,7 @@ class ComplaintsController extends BaseController
         $this->complaintsRepository = $complaintsRepository;
         $this->complaintsValidator = $complaintsValidator;
         $this->complaintsCommand = $complaintsCommand;
+        $this->adminRepository = $adminRepository;
 
         $this->beforeFilter('tenant_auth');
     }

@@ -1,6 +1,6 @@
 @extends('......Layouts.application')
 @section('content')
-    @include('admin.partials.navbar')
+    @include('tenant.partials.navbar')
 
 	<div class="container" style="padding-top: 70px;">
 		@include('Layouts.Partials.info')
@@ -34,7 +34,7 @@
             		                <tr>
             		                    <td>{{ $complaint->id }}</td>
             		                    <td><p>{{ $complaint->description }}</p></td>
-            		                    <td>{{ '' }}</td>
+            		                    <td>{{ $complaint->present('complaint_categories') }}</td>
             		                    <td>
             		                        <span class="label label-{{ $complaint->is_handled ? 'success': 'warning' }}">
             		                            {{ $complaint->is_handled ? 'Handled': 'Not Handled' }}

@@ -10,6 +10,9 @@
 
 
     use AppartmentManager\Models\Admin;
+    use AppartmentManager\Models\AdminComplaintsCategory;
+    use AppartmentManager\Models\Complaint;
+    use AppartmentManager\Models\ComplaintComplaintsCategory;
     use AppartmentManager\Repository\CrudRepository;
 
     class AdminRepository implements CrudRepository
@@ -99,6 +102,57 @@
         public function getAdminByEmail($email)
         {
             return $this->admin->where('email', $email)->first();
+        }
+
+        public function getComplaintsForAdmin(Admin $admin)
+        {
+            $admin->load('complaintsCategories');
+
+            $complaintsCategories = $admin->complaintsCategories;
+            $value = $complaintsCategories;
+            // dd($value);
+
+            $response = ComplaintComplaintsCategory::with(
+                [
+                    'complaint',
+                    'complaint.tenant',
+                    'complaint.tenant.appartment',
+                    'complaints_category'
+                ])
+                ->whereHas('complaints_category', function ($q) use ($value) {
+                    if (isset($value) && count($value) > 0) {
+                        foreach ($value as $v) {
+                            $q->orWhere('id', $v->id);
+                        }
+                    }
+                })->simplePaginate(20);
+
+            return $response;
+        }
+
+        public function getAdminsForComplaint(Complaint $complaint)
+        {
+            $complaint->load('complaints_categories');
+
+            $complaintsCategories = $complaint->complaints_categories;
+
+            $value = $complaintsCategories->toArray();
+
+
+            $response = AdminComplaintsCategory::with('admin');
+
+            if (is_array($value) && !empty($value)) {
+                $response->where('complaints_category_id', [$value[0]['id']]);
+            }
+            if (is_array($value) && count($value) > 1) {
+                for ($i = 1; $i < count($value); $i++) {
+                    $response->where('complaints_category_id', [$value[$i]['id']]);
+                }
+            };
+
+            $response = $response->get();
+
+            return $response;
         }
 
 

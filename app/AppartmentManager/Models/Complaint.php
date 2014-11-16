@@ -26,6 +26,30 @@
 
         public function complaints_categories()
         {
-            return $this->belongsToMany('AppartmentManager\Models\ComplaintsCategory');
+            return $this->belongsToMany(
+                'AppartmentManager\Models\ComplaintsCategory',
+                'complaint_complaints_category',
+                'complaints_category_id'
+            );
+        }
+
+        public function admins()
+        {
+            return $this->hasManyThrough('AppartmentManager\Models\Admin',
+                'AppartmentManager\Models\ComplaintsCategory');
+        }
+
+        public function present($attr)
+        {
+            $cats = ComplaintComplaintsCategory::where('complaint_id', $this->id)
+                ->with('complaints_category')
+                ->get();
+            $result = '';
+            //dd($cats->toJson());
+            foreach ($cats as $cat) {
+                $result .= "<label class='label label-info'>{$cat->complaints_category->name}</label><br/>";
+            }
+
+            return $result;
         }
     }

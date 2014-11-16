@@ -1,8 +1,8 @@
 <div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <ul class="nav navbar-nav">
-            <li><a href="{{ route('appartment.index') }}">Complaints</a></li>
-            <li><a href="{{ route('tenant.index') }}">Profile</a></li>
+            <li><a href="{{ route('complaints.index') }}">Complaints</a></li>
+            <li><a href="{{ route('tenant.show',['id'=>$tenant->id]) }}">Profile</a></li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">

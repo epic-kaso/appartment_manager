@@ -10,6 +10,7 @@
 
 
     use AppartmentManager\Models\Complaint;
+    use AppartmentManager\Models\ComplaintComplaintsCategory;
     use AppartmentManager\Repository\Admin\TenantRepository;
 
     class ComplaintsRepository extends BaseTenantRepository
@@ -40,10 +41,15 @@
         {
             parent::create($data);
             $category_ids = $data['category_ids'];
+
             $m = $this->complaintModel->create(['description' => $data['complaint_body']]);
             $m->tenant()->associate($this->getTenant());
+            $m->save();
             foreach ($category_ids as $id) {
-                $m->complaints_categories()->attach($id);
+                ComplaintComplaintsCategory::create([
+                    'complaint_id'           => $m->id,
+                    'complaints_category_id' => $id
+                ]);
             }
             $m->save();
             return $m;

@@ -16,7 +16,7 @@
 
         public function appartment()
         {
-            return Appartment::where('tenant_id', $this->id)->first();
+            return $this->hasOne('AppartmentManager\Models\Appartment');
         }
 
         public function setPasswordAttribute($password)

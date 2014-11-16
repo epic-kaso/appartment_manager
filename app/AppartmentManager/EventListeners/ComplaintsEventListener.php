@@ -10,12 +10,47 @@
 
 
     use AppartmentManager\Events\TenantCreatesComplaint;
+    use AppartmentManager\Models\Complaint;
+    use AppartmentManager\Notifications\NotificationManager;
+    use AppartmentManager\Repository\Admin\AdminRepository;
 
     class ComplaintsEventListener
     {
-        public function onTenantCreatesComplaint($event)
+
+
+        /**
+         * @var NotificationManager
+         */
+        private $notificationManager;
+        /**
+         * @var AdminRepository
+         */
+        private $adminRepository;
+
+        function __construct(
+            NotificationManager $notificationManager,
+            AdminRepository $adminRepository
+        )
         {
-            dd('event called');
+            $this->notificationManager = $notificationManager;
+            $this->adminRepository = $adminRepository;
+        }
+
+        public function onTenantCreatesComplaint($complaint_id)
+        {
+
+            $complaint = Complaint::find($complaint_id);
+
+            $message = "New Complaint from {$complaint->tenant->appartment->appartment_id} \n" .
+                "'{$complaint->description}'";
+            $r = $this->adminRepository->getAdminsForComplaint($complaint);
+
+            if (!empty($r)) {
+                foreach ($r as $a) {
+                    $this->notificationManager->sendEmail($a->admin->email, 'New Complaint', $message, 'complaints@tenantmanger.com');
+                }
+            }
+
         }
 
         public function subscribe($events)
