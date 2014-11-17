@@ -39,6 +39,9 @@ class ComplaintsController extends BaseController
         AdminRepository $adminRepository
     )
     {
+
+        $this->beforeFilter('tenant_auth');
+
         $this->tenantRepository = $tenantRepository;
         $this->complaintsCategoryRepository = $complaintsCategoryRepository;
         $this->complaintsRepository = $complaintsRepository;
@@ -46,7 +49,7 @@ class ComplaintsController extends BaseController
         $this->complaintsCommand = $complaintsCommand;
         $this->adminRepository = $adminRepository;
 
-        $this->beforeFilter('tenant_auth');
+
     }
 
 

@@ -14,8 +14,10 @@ class DashboardController extends BaseController
 
     function __construct(AdminRepository $adminRepository)
     {
-        $this->adminRepository = $adminRepository;
         $this->beforeFilter('admin_auth');
+
+        $this->adminRepository = $adminRepository;
+
     }
 
 

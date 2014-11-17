@@ -13,8 +13,10 @@ class DashboardController extends BaseController
 
     function __construct(TenantRepository $tenantRepository)
     {
-        $this->tenantRepository = $tenantRepository;
         $this->beforeFilter('tenant_auth');
+
+        $this->tenantRepository = $tenantRepository;
+
     }
 
 

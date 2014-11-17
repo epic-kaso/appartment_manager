@@ -40,10 +40,11 @@ class AppartmentController extends BaseController
         AdminRepository $adminRepository
     )
     {
+        $this->beforeFilter('admin_auth');
+
         $this->appartmentCommand = $appartmentCommand;
         $this->appartmentValidator = $appartmentValidator;
         $this->appartmentRepository = $appartmentRepository;
-        $this->beforeFilter('admin_auth');
         $this->adminRepository = $adminRepository;
     }
 

@@ -28,10 +28,12 @@ class AdminController extends BaseController
         AdminCommand $adminCommand
     )
     {
+        $this->beforeFilter('admin_auth');
+
         $this->adminRepository = $adminRepository;
         $this->adminValidator = $adminValidator;
         $this->adminCommand = $adminCommand;
-        $this->beforeFilter('admin_auth');
+
     }
 
 

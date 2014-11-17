@@ -32,11 +32,13 @@ class ComplaintsCategoryController extends BaseController
         AdminRepository $adminRepository
     )
     {
+        $this->beforeFilter('admin_auth');
+
         $this->complaintsCategoryRepository = $complaintsCategoryRepository;
         $this->adminRepository = $adminRepository;
         $this->categoryValidator = $categoryValidator;
         $this->complaintsCategoryCommand = $complaintsCategoryCommand;
-        $this->beforeFilter('admin_auth');
+
     }
 
     /**

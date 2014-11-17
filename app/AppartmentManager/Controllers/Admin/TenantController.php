@@ -39,11 +39,12 @@ class TenantController extends BaseController
         AdminRepository $adminRepository
     )
     {
+        $this->beforeFilter('admin_auth');
+
         $this->tenantRepository = $tenantRepository;
         $this->appartmentRepository = $appartmentRepository;
         $this->tenantValidator = $tenantValidator;
         $this->tenantCommand = $tenantCommand;
-        $this->beforeFilter('admin_auth');
         $this->adminRepository = $adminRepository;
     }
 
