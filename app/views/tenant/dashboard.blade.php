@@ -10,7 +10,7 @@
 
 		<div class="row">
 			@include('Layouts.Partials.info')
-			<h3>Complaints</h3><hr/>
+			<span class="text-muted">Complaints</span><hr/>
 		    <div>
 		    	<a href="{{ route('tenant-dashboard.complaints.create') }}" class="menu-item-link">
 		    		<div class="menu-item">
@@ -26,7 +26,7 @@
 					</div>
 				</a>
 		    </div>
-		    <h3>Payments</h3><hr/>
+		    <span class="text-muted">Payments</span><hr/>
 			<div>
 				<a href="#" class="menu-item-link">
 					<div class="menu-item">
