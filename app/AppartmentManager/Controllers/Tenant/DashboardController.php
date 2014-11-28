@@ -29,7 +29,8 @@ class DashboardController extends BaseController
     {
         $tenant = $this->tenantRepository->getCurrentTenant();
 
-        return \View::make('tenant.dashboard', compact('tenant'));
+        return \View::make('tenant.dashboard', compact('tenant'))
+            ->with('message', \Session::get('message'));;
     }
 
 

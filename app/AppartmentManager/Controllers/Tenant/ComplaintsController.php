@@ -63,7 +63,8 @@ class ComplaintsController extends BaseController
         $tenant = $this->tenantRepository->getCurrentTenant();
         $complaints = $this->complaintsRepository->all(NULL);
 
-        return \View::make('tenant.complaints.index', compact('tenant', 'complaints'));
+        return \View::make('tenant.complaints.index', compact('tenant', 'complaints'))
+            ->with('message', \Session::get('message'));;
     }
 
 
@@ -77,7 +78,8 @@ class ComplaintsController extends BaseController
         $tenant = $this->tenantRepository->getCurrentTenant();
         $complaints_categories = $this->complaintsCategoryRepository->all(NULL);
 
-        return \View::make('tenant.complaints.create', compact('tenant', 'complaints_categories'));
+        return \View::make('tenant.complaints.create', compact('tenant', 'complaints_categories'))
+            ->with('message', \Session::get('message'));;
     }
 
 
@@ -111,7 +113,8 @@ class ComplaintsController extends BaseController
      */
     public function show($id)
     {
-        return \View::make('tenant.complaints.show');
+        return \View::make('tenant.complaints.show')
+            ->with('message', \Session::get('message'));;
     }
 
 
@@ -123,7 +126,8 @@ class ComplaintsController extends BaseController
      */
     public function edit($id)
     {
-        return \View::make('tenant.complaints.edit');
+        return \View::make('tenant.complaints.edit')
+            ->with('message', \Session::get('message'));;
     }
 
 

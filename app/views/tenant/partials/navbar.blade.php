@@ -8,7 +8,7 @@
         <ul class="nav navbar-nav">
             <li><a href="{{ route('tenant-dashboard.index') }}">Dashboard</a></li>
             <li><a href="{{ route('tenant-dashboard.complaints.index') }}">Complaints</a></li>
-            <li><a href="{{ route('tenant-dashboard.profile.index') }}">Profile</a></li>
+            <li><a href="{{ action('AppartmentManager\Controllers\Tenant\ProfileController@getIndex') }}">Profile</a></li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">

@@ -22,11 +22,12 @@ class ProfileController extends BaseController
      *
      * @return Response
      */
-    public function index()
+    public function getIndex()
     {
         $tenant = $this->tenantRepository->getCurrentTenant();
 
-        return \View::make('tenant.profile.show', compact('tenant'));
+        return \View::make('tenant.profile.show', compact('tenant'))
+            ->with('message', \Session::get('message'));
     }
 
 
@@ -35,10 +36,12 @@ class ProfileController extends BaseController
      *
      * @return Response
      */
-    public function edit()
+    public function getEdit()
     {
         $tenant = $this->tenantRepository->getCurrentTenant();
-        return \View::make('tenant.profile.edit', compact('tenant'));
+
+        return \View::make('tenant.profile.edit', compact('tenant'))
+            ->with('message', \Session::get('message'));;
     }
 
 
@@ -47,7 +50,7 @@ class ProfileController extends BaseController
      *
      * @return Response
      */
-    public function update()
+    public function putUpdate()
     {
         //
     }
@@ -58,7 +61,7 @@ class ProfileController extends BaseController
      *
      * @return Response
      */
-    public function destroy()
+    public function postDestroy()
     {
         //
     }

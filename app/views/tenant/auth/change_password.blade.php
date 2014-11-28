@@ -1,27 +1,38 @@
-@extends('......Layouts.application')
+@extends('Layouts.application')
 @section('content')
+    @include('tenant.partials.navbar',compact('tenant'))
+
 	<div class="container">
 		<div class="row">
+		    <div class="col-sm-12">
+		    </div>
+		</div>
+
+		<div class="row">
 			@include('Layouts.Partials.info')
-		    <div class="col-sm-4 col-sm-offset-4">
-		    	{{ Form::open() }}
+
+			<div class="col-sm-4">
+				@include('tenant.profile.side_nav')
+			</div>
+			<div class="col-sm-8">
+				<div class="profile">
+		    	{{ Form::open(['url' => action('AppartmentManager\Controllers\Tenant\Auth\AuthController@postChangePassword')]) }}
 
 					<div class="form-group">
-                        {{ Form::label('New Password') }}
-                        {{ Form::password('password',['class'=>'form-control']) }}
+                        {{ Form::password('new_password',['class'=>'form-control','placeholder'=>'NEW PASSWORD']) }}
                     </div>
 
                     <div class="form-group">
-                        {{ Form::label('Confirm Password') }}
-                        {{ Form::password('password_confirmation',['class'=>'form-control']) }}
+                        {{ Form::password('new_password_confirmation',['class'=>'form-control','placeholder'=>'CONFIRM NEW PASSWORD']) }}
                     </div>
 
 					<div class="form-group">
-						{{ Form::submit('Change Password',['class'=>'btn btn-primary']) }}
+						{{ Form::submit('Change Password',['class'=>'btn btn-appartment']) }}
 					</div>
 				{{ Form::close() }}
 		    </div>
 		</div>
 	</div>
+</div>
 @stop
 

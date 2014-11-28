@@ -17,7 +17,7 @@
 			<div class="col-sm-8">
 				<div class="profile">
 					{{ Form::model($tenant,[
-					'url' => action('AppartmentManager\Controllers\Tenant\ProfileController@update'),
+					'url' => action('AppartmentManager\Controllers\Tenant\ProfileController@putUpdate'),
 					'method'=>'PUT']) }}
 						<div class="form-group">
 							{{ Form::label('Last Name') }}

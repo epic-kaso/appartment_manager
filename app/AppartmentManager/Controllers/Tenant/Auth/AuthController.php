@@ -39,7 +39,8 @@ class AuthController extends \Controller
      */
     public function getLogin()
     {
-        return \View::make('tenant.auth.login');
+        return \View::make('tenant.auth.login')
+            ->with('message', \Session::get('message'));;
     }
 
 
@@ -76,7 +77,8 @@ class AuthController extends \Controller
      */
     public function getForgotPassword()
     {
-        return \View::make('tenant.auth.forgot_password');
+        return \View::make('tenant.auth.forgot_password')
+            ->with('message', \Session::get('message'));;
     }
 
     public function postForgotPassword()
@@ -86,12 +88,28 @@ class AuthController extends \Controller
 
     public function getChangePassword()
     {
-        return \View::make('tenant.auth.change_password');
+        $tenant = $this->tenantRepository->getCurrentTenant();
+
+        return \View::make('tenant.auth.change_password', compact('tenant'));
     }
 
-    public function postChangePassword($token)
+    public function postChangePassword()
     {
+        $tenant = $this->tenantRepository->getCurrentTenant();
 
+        $rules = ['new_password' => 'required|alpha_dash|confirmed'];
+
+        $result = \Validator::make(\Input::only(['new_password', 'new_password_confirmation']), $rules);
+
+        if ($result->fails()) {
+            return \Redirect::back()->withInput()->withErrors($result);
+        }
+
+        $tenant->password = \Input::get('new_password');
+        $tenant->save();
+
+        return \Redirect::action('AppartmentManager\Controllers\Tenant\ProfileController@getIndex')
+            ->withMessage('Successfully Changed Password');
     }
 
 

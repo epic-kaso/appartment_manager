@@ -11,7 +11,7 @@
     |
     */
 
-    Route::get('/', 'AppartmentManager\Controllers\HomeController@index');
+    Route::get('/', ['as' => 'home', 'uses' => 'AppartmentManager\Controllers\HomeController@index']);
 
     //appartment CRUD routes
     Route::resource('appartment', 'AppartmentManager\Controllers\Admin\AppartmentController');
@@ -34,7 +34,7 @@
         'AppartmentManager\Controllers\Tenant\Auth\AuthController'
     );
     //Tenant Dashboard CRUD routes
-    Route::resource(
+    Route::controller(
         'tenant-dashboard/profile',
         'AppartmentManager\Controllers\Tenant\ProfileController'
     );

@@ -11,6 +11,8 @@
     |
     */
 
+    use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
     ClassLoader::addDirectories(array(
 
         app_path() . '/commands',
@@ -50,6 +52,10 @@
         Log::error($exception);
     });
 
+
+    App::error(function (NotFoundHttpException $ex, $code) {
+        return View::make('errors.404');
+    });
     /*
     |--------------------------------------------------------------------------
     | Maintenance Mode Handler
