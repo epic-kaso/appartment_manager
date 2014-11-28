@@ -91,7 +91,7 @@
 
             for ($i = 1; $i <= $size; $i++) {
                 $units[] = $this->unitRepository->create([
-                    'name'     => 'BLOCK-' . strtoupper($block->name) . '-UNIT-' . $i,
+                    'name' => strtoupper($block->name) . '-' . $i,
                     'block_id' => $block->id
                 ]);
             }
