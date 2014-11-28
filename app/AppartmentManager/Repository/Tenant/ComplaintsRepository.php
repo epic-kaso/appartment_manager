@@ -57,7 +57,7 @@
 
         public function read($id, $is_tenant = TRUE, $data = [])
         {
-            parent::read($id, $data);
+            // parent::read($id, $data);
             if ($is_tenant) {
                 return $this->complaintModel()->findOrFail($id);
             } else {
