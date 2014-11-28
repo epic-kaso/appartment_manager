@@ -29,7 +29,23 @@
 
         public function execute($data = [])
         {
-            $complaint = $this->complaintsRepository->create($data);
+            $data['category_ids'] = $this->fetchCategoryIds($data);
+
+            $complaint = $this->complaintsRepository->create(
+                [
+                    'category_ids'   => $data['category_ids'],
+                    'complaint_body' => $data['complaint_body']
+                ]);
             \Event::fire(TenantCreatesComplaint::class, ['complaint_id' => $complaint->id]);
+        }
+
+        private function fetchCategoryIds($data = [])
+        {
+
+            $array = array_where($data, function ($key, $value) {
+                return str_contains($key, 'category');
+            });
+
+            return array_values($array);
         }
     }

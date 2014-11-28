@@ -17,8 +17,7 @@
         function getRules()
         {
             return [
-                'complaint_body' => 'required',
-                'category_ids'   => 'required|array'
+                'complaint_body' => 'required'
             ];
         }
     }

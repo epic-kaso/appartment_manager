@@ -88,7 +88,7 @@ class ComplaintsController extends BaseController
      */
     public function store()
     {
-        $data = \Input::only(['complaint_body', 'category_ids']);
+        $data = \Input::all();
 
         $validation = $this->complaintsValidator->validate($data);
 
@@ -98,7 +98,7 @@ class ComplaintsController extends BaseController
 
         $this->complaintsCommand->execute($data);
 
-        return \Redirect::route('complaints.index')
+        return \Redirect::route('tenant-dashboard.complaints.index')
             ->withMessage('Created Successfully');
     }
 
