@@ -1,4 +1,4 @@
-@extends('......Layouts.application')
+@extends('Layouts.application')
 @section('content')
     @include('admin.partials.navbar',compact('admin'))
 

@@ -13,9 +13,16 @@
 
         <ul class="nav navbar-nav navbar-right">
             <li>
+            <a href="{{ action('AppartmentManager\Controllers\Tenant\ProfileController@getIndex') }}">
+                @if(isset($tenant) && !empty($tenant))
+                    {{  $tenant->first_name}}  -
+                @endif
+            </a>
+            </li>
+            <li>
             <a href="{{ action('AppartmentManager\Controllers\Tenant\Auth\AuthController@getLogout') }}">
                 @if(isset($tenant) && !empty($tenant))
-                    {{  $tenant->first_name}}  - Logout
+                    Logout
                 @endif
             </a>
             </li>
