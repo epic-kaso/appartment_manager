@@ -64,7 +64,7 @@ class ComplaintsController extends BaseController
         $complaints = $this->complaintsRepository->all(NULL);
 
         return \View::make('tenant.complaints.index', compact('tenant', 'complaints'))
-            ->with('message', \Session::get('message'));;
+            ->with('message', \Session::get('message'));
     }
 
 
@@ -79,7 +79,7 @@ class ComplaintsController extends BaseController
         $complaints_categories = $this->complaintsCategoryRepository->all(NULL);
 
         return \View::make('tenant.complaints.create', compact('tenant', 'complaints_categories'))
-            ->with('message', \Session::get('message'));;
+            ->with('message', \Session::get('message'));
     }
 
 
@@ -100,7 +100,7 @@ class ComplaintsController extends BaseController
 
         $this->complaintsCommand->execute($data);
 
-        return \Redirect::route('tenant-dashboard.complaints.index')
+        return \Redirect::action('AppartmentManager\Controllers\Tenant\ComplaintsController@index')
             ->withMessage('Created Successfully');
     }
 
