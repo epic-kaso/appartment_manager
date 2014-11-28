@@ -17,11 +17,16 @@
         public function sendEmail($destinationEmail, $subject, $body, $from = NULL, $options = [])
         {
 
-            \Mail::queue($this->basicMailTemplate, ['body' => $body],
-                function ($message) use ($destinationEmail, $subject, $from) {
-                    $message->subject($subject)
-                        ->to($destinationEmail)
-                        ->from($from);
-                });
+            try {
+                \Mail::queue($this->basicMailTemplate, ['body' => $body],
+                    function ($message) use ($destinationEmail, $subject, $from) {
+                        $message->subject($subject)
+                            ->to($destinationEmail)
+                            ->from($from);
+                    });
+            } catch (\Exception $ex) {
+                \Log::alert('Email Sending failed::' . $ex->getMessage());
+            }
+
         }
     }
