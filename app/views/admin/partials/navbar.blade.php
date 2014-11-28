@@ -18,7 +18,7 @@
             <li>
                 <a href="{{ action('AppartmentManager\Controllers\Admin\Auth\AuthController@getLogout') }}">
                     @if(isset($admin) && !empty($admin))
-                        {{  $admin->name}}  - Logout
+                        {{  $admin->email}}  - Logout
                     @endif
                 </a>
             </li>
