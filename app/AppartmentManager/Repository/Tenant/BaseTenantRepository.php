@@ -26,7 +26,7 @@
             return $this->tenant;
         }
 
-        public function setTenant(Tenant $tenant)
+        public function setTenant(Tenant $tenant = NULL)
         {
             $this->tenant = $tenant;
         }

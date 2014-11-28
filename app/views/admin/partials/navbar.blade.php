@@ -1,5 +1,10 @@
 <div class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <img src="http://localhost:8000/img/LOGO.gif" class="img-responsive" style="
+                height: 50px;
+            ">
+        </div>
         <ul class="nav navbar-nav">
             <li><a href="{{ route('admin-dashboard.index') }}">Dashboard</a></li>
             <li><a href="{{ route('admin-complaints.index') }}">Complaints</a></li>

@@ -27,7 +27,7 @@
 
         public function filter()
         {
-            if (!$this->tenantRepository->getCurrentTenant()) {
+            if (empty($this->tenantRepository->getCurrentTenant())) {
                 if (\Request::ajax()) {
                     return \Response::make('Unauthorized', 401);
                 } else {

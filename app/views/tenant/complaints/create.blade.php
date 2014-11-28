@@ -4,7 +4,7 @@
 	<div class="container" style="padding-top: 70px;">
 		<div class="row">
 		    <div class="col-sm-12">
-		    	<h1>Create Complaint</h1>
+		    	<h1>Make a new Complain</h1>
 		    </div>
 		</div>
 
@@ -13,20 +13,25 @@
 		    <div class="col-sm-6">
 		    	{{ Form::open(['url' => route('complaints.store')]) }}
 					<div class="form-group">
-						{{ Form::label('Complaint') }}
-						{{ Form::textarea('complaint_body',null,['class'=>'form-control','rows'=>'5']) }}
+						{{ Form::textarea('complaint_body',null,
+						['class'=>'form-control','rows'=>'10','placeholder'=>'WRITE YOUR COMPLAINT HERE']) }}
 					</div>
 					@if(isset($complaints_categories) && !empty($complaints_categories))
-						@foreach($complaints_categories as $category)
-							<div class="form-group grid-select">
-								{{ Form::label('category_ids[]',$category->name) }}
-								{{ Form::checkbox('category_ids[]',$category->id) }}<br/>
-							</div>
-						@endforeach
+						<div class="grid-select">
+							@foreach($complaints_categories as $category)
+								<div class="form-group">
+									<label>
+										{{ $category->name }}
+										{{ Form::checkbox('category.'.$category->name,$category->id) }}
+									</label>
+								</div>
+							@endforeach
+						</div>
+
 					@endif
 
 					<div class="form-group">
-						{{ Form::submit('Create',['class'=>'btn btn-primary']) }}
+						{{ Form::submit('Create',['class'=>'btn btn-appartment btn-block']) }}
 					</div>
 
 				{{ Form::close() }}

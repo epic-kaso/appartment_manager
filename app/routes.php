@@ -35,6 +35,10 @@
         'tenant-dashboard',
         'AppartmentManager\Controllers\Tenant\DashboardController'
     );
+    Route::resource(
+        'tenant-dashboard.profile',
+        'AppartmentManager\Controllers\Tenant\ProfileController'
+    );
     //Tenant Dashboard CRUD routes
     Route::resource(
         'admin-dashboard',

@@ -3,21 +3,22 @@
 	<div class="container" style="padding-top: 70px;">
 		<div class="row">
 			@include('Layouts.Partials.info')
-		    <div class="col-sm-4 col-sm-offset-4">
+		    <div class="col-sm-4 col-sm-offset-4 text-center">
+		    <div>
+				<img src="{{ asset('img/LOGO.gif') }}" class="img-responsive" alt="company logo" />
+			</div>
 		    	<h1>Admin Login</h1>
 		    	{{ Form::open() }}
 					<div class="form-group">
-						{{ Form::label('Email') }}
-						{{ Form::email('email',null,['class'=>'form-control']) }}
+						{{ Form::email('email',null,['class'=>'form-control','placeholder'=>'EMAIL']) }}
 					</div>
 
 					<div class="form-group">
-                        {{ Form::label('Your Password') }}
-                        {{ Form::password('password',['class'=>'form-control']) }}
+                        {{ Form::password('password',['class'=>'form-control','placeholder'=>'PASSWORD']) }}
                     </div>
 
 					<div class="form-group">
-						{{ Form::submit('Login',['class'=>'btn btn-primary']) }}
+						{{ Form::submit('Login',['class'=>'btn btn-appartment btn-block']) }}
 					</div>
 				{{ Form::close() }}
 		    </div>
