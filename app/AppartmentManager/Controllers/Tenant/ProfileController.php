@@ -38,7 +38,6 @@ class ProfileController extends BaseController
     public function edit()
     {
         $tenant = $this->tenantRepository->getCurrentTenant();
-
         return \View::make('tenant.profile.edit', compact('tenant'));
     }
 

@@ -29,7 +29,10 @@
     //Admin Complaints
     Route::resource('admin-complaints', 'AppartmentManager\Controllers\Admin\AdminComplaintsController');
     //Tenant Auth Controller
-    Route::controller('tenant/auth', 'AppartmentManager\Controllers\Tenant\Auth\AuthController');
+    Route::controller(
+        'tenant/auth',
+        'AppartmentManager\Controllers\Tenant\Auth\AuthController'
+    );
     //Tenant Dashboard CRUD routes
     Route::resource(
         'tenant-dashboard/profile',

@@ -84,7 +84,7 @@ class AuthController extends \Controller
         //
     }
 
-    public function getChangePassword($token)
+    public function getChangePassword()
     {
         return \View::make('tenant.auth.change_password');
     }

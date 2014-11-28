@@ -87,10 +87,11 @@ a.menu-item-link:hover {
 
 .advert {
     height: 150px;
-    margin-top: 70px;
+    margin-top: 60px;
     border: #e8e8e8 solid 1px;
     border-radius: 5px;
     background-color: #f2f2f2;
+    margin-bottom: 15px;
 }
 
 .advert span {
@@ -98,4 +99,8 @@ a.menu-item-link:hover {
     vertical-align: middle;
     display: block;
     margin-top: 50px;
+}
+
+.profile .form-group span {
+    font-size: 1.8em;
 }
