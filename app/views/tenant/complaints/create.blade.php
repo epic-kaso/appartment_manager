@@ -22,7 +22,7 @@
 								<div class="form-group">
 									<label>
 										{{ $category->name }}
-										{{ Form::checkbox('category.'.snake_case($category->name),$category->id) }}
+										{{ Form::checkbox('category.'.snake_case(str_replace(' ','',$category->name)),$category->id) }}
 									</label>
 								</div>
 							@endforeach
