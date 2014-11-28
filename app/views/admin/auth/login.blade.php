@@ -1,6 +1,6 @@
 @extends('......Layouts.application')
 @section('content')
-	<div class="container" style="padding-top: 70px;">
+	<div class="container">
 		<div class="row">
 			@include('Layouts.Partials.info')
 		    <div class="col-sm-4 col-sm-offset-4 text-center">

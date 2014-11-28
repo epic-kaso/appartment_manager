@@ -2,7 +2,7 @@
 @section('content')
     @include('tenant.partials.navbar',compact('tenant'))
 
-	<div class="container" style="padding-top: 70px;">
+	<div class="container">
 		<div class="row">
 		    <div class="col-sm-12">
 		    </div>

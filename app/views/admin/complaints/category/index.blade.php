@@ -2,7 +2,7 @@
 @section('content')
     @include('admin.partials.navbar')
 
-	<div class="container" style="padding-top: 70px;">
+	<div class="container">
 		@include('Layouts.Partials.info')
 		<div class="row">
 		    <h1>Complaints-Categories</h1>

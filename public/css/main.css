@@ -33,7 +33,7 @@ a.menu-item-link {
     text-decoration: none;
     color: #91282a;
     /*color: #000000;*/
-    background-color: #f2f2f2;
+    /* background-color: #f2f2f2; */
     margin: 10px;
     padding: 10px;
     width: 180px;
@@ -83,4 +83,12 @@ a.menu-item-link:hover {
 .grid-select .form-group label {
     padding: 10px;
     display: inline-block;
+}
+
+.advert {
+    height: 150px;
+    margin-top: 70px;
+    border: #e8e8e8 solid 1px;
+    border-radius: 5px;
+    background-color: #f2f2f2;
 }

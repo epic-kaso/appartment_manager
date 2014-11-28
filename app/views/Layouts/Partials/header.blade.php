@@ -10,3 +10,8 @@
     <link rel="stylesheet" href="/css/main.css">
 </head>
 <body class="awesome-background">
+    <div class="container">
+        <div class="row">
+            <div class="advert"></div>
+        </div>
+     </div>

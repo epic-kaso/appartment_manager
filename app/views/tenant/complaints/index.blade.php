@@ -2,7 +2,7 @@
 @section('content')
     @include('tenant.partials.navbar')
 
-	<div class="container" style="padding-top: 70px;">
+	<div class="container">
 		@include('Layouts.Partials.info')
 		<div class="row">
 		    <h1>Complaints</h1>
@@ -12,7 +12,7 @@
                     <input type="text" placeholder="search" class="form-control form-inline"/>
                     <input type="submit" class="btn form-inline" value="Search"/>
                 </form>
-                <a href="{{ route('complaints.create') }}" class="btn btn-primary pull-right">Create</a>
+                <a href="{{ route('tenant-dashboard.complaints.create') }}" class="btn btn-primary pull-right">Create</a>
 
 		    </div>
 		</div>

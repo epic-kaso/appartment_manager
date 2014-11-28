@@ -1,7 +1,7 @@
 @extends('......Layouts.application')
 @section('content')
     @include('admin.partials.navbar')
-	<div class="container" style="padding-top: 70px;">
+	<div class="container">
 		<div class="row">
 		    <div class="col-sm-12">
 		    	<h1>Create Admin</h1>

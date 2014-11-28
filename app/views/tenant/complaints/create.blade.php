@@ -1,7 +1,7 @@
 @extends('......Layouts.application')
 @section('content')
     @include('tenant.partials.navbar',compact('tenant'))
-	<div class="container" style="padding-top: 70px;">
+	<div class="container">
 		<div class="row">
 		    <div class="col-sm-12">
 		    	<h1>Make a new Complain</h1>
@@ -11,7 +11,7 @@
 		<div class="row">
 			@include('Layouts.Partials.info')
 		    <div class="col-sm-6">
-		    	{{ Form::open(['url' => route('complaints.store')]) }}
+		    	{{ Form::open(['url' => route('tenant-dashboard.complaints.store')]) }}
 					<div class="form-group">
 						{{ Form::textarea('complaint_body',null,
 						['class'=>'form-control','rows'=>'10','placeholder'=>'WRITE YOUR COMPLAINT HERE']) }}
