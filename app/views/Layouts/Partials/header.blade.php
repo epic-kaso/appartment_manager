@@ -12,6 +12,8 @@
 <body class="awesome-background">
     <div class="container">
         <div class="row">
-            <div class="advert"></div>
+            <div class="advert text-center">
+                <span>Place Advert Here</span>
+            </div>
         </div>
      </div>
