@@ -30,14 +30,14 @@
 			<div>
 				<a href="#" class="menu-item-link">
 					<div class="menu-item">
-						<span class="glyphicon glyphicon-bell"></span>
+						<span class="fa fa-building"></span>
 						<h4>House Rent</h4>
 					</div>
 				</a>
 
 				<a href="#" class="menu-item-link">
 					<div class="menu-item">
-						<span class="glyphicon glyphicon-list"></span>
+						<span class="fa fa-money"></span>
 						<h4>Service Charges</h4>
 					</div>
 				</a>
