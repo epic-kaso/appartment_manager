@@ -54,7 +54,7 @@
         |
         */
 
-        'from'       => array('address' => NULL, 'name' => NULL),
+        'from' => array('address' => 'info@homemanger.com', 'name' => 'HR Homes'),
 
         /*
         |--------------------------------------------------------------------------

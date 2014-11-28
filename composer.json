@@ -8,7 +8,9 @@
   "license": "MIT",
   "type": "project",
   "require": {
-    "laravel/framework": "4.2.*"
+    "laravel/framework": "4.2.*",
+    "guzzlehttp/guzzle": "~4.0",
+    "pda/pheanstalk": "~2.0"
   },
   "autoload": {
     "classmap": [

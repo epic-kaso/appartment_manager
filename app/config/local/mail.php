@@ -18,5 +18,4 @@
         'driver'  => 'log',
 
         'pretend' => FALSE,
-
     );
