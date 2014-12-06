@@ -8,8 +8,10 @@
         <ul class="nav navbar-nav">
             <li><a href="{{ route('admin-dashboard.index') }}">Dashboard</a></li>
             <li><a href="{{ route('admin-complaints.index') }}">Complaints</a></li>
-            <li><a href="{{ route('appartment.index') }}">Appartments</a></li>
-            <li><a href="{{ route('tenant.index') }}">Tenants</a></li>
+            <li>
+                <a href="{{ action('AppartmentManager\Controllers\Admin\AppartmentController@getIndex') }}">Appartments</a>
+            </li>
+            <li><a href="{{ route('tenant.index') }}">Residents</a></li>
             <li><a href="{{ route('complaints.category.index') }}">Complaints-Categories</a></li>
             <li><a href="{{ route('admin.index') }}">Admin</a></li>
         </ul>

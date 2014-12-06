@@ -49,10 +49,10 @@
 
         public function execute($data = [])
         {
-            return $this->createAppartment($data['block_name'], $data['block_size']);
+            return $this->createAppartment($data['block_name'], $data['block_size'], $data['unit_prefix']);
         }
 
-        private function createAppartment($block_name, $block_size)
+        private function createAppartment($block_name, $block_size, $unit_prefix)
         {
             $this->block_name = $block_name;
             $this->block_size = $block_size;
@@ -63,7 +63,7 @@
 
             //Second, Create Units Based on Block Size
 
-            $units = $this->createUnits($block);
+            $units = $this->createUnits($block, $unit_prefix);
 
             //Third, Create Appartments Based on Units
 
@@ -74,7 +74,7 @@
 
         private function createBlock($block_name, $block_size)
         {
-            $block = $this->blockRepository->create(
+            $block = $this->blockRepository->firstOrCreate(
                 [
                     'name' => $block_name,
                     'size' => $block_size
@@ -84,14 +84,14 @@
             return $block;
         }
 
-        private function createUnits($block)
+        private function createUnits($block, $unit_prefix)
         {
             $size = $block->size;
             $units = [];
 
             for ($i = 1; $i <= $size; $i++) {
-                $units[] = $this->unitRepository->create([
-                    'name' => strtoupper($block->name) . '-' . $i,
+                $units[] = $this->unitRepository->firstOrCreate([
+                    'name' => $unit_prefix . $i,
                     'block_id' => $block->id
                 ]);
             }
@@ -109,7 +109,7 @@
                         'unit_id'       => $unit->id,
                         'tenant_id'     => NULL,
                         'is_vacant'     => TRUE,
-                        'appartment_id' => $unit->name
+                        'appartment_id' => \Str::slug($unit->block->name . ' ' . $unit->name)
                     ]
                 );
             }

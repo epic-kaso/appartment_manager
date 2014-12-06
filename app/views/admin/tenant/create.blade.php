@@ -4,7 +4,7 @@
 	<div class="container">
 		<div class="row">
 		    <div class="col-sm-12">
-		    	<h1>Create Tenant</h1>
+				<h1>Add Resident</h1>
 				<div class="table-menu">
 					<span class="btn btn-default">Sort</span>
 					<form role="form" class="form-inline" style="display: inline-block">

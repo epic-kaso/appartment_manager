@@ -28,4 +28,15 @@
         {
             return \Hash::check($password, $this->attributes['password']);
         }
+
+        public function packout()
+        {
+            $appartment = $this->appartment;
+
+            $appartment->tenant_id = NULL;
+            $appartment->is_vacant = TRUE;
+            $appartment->save();
+
+            return $this->delete();
+        }
     }

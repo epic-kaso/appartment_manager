@@ -115,7 +115,6 @@ class AuthController extends \Controller
     public function getLogout()
     {
         $this->tenantRepository->unSetCurrentTenant();
-
         return \Redirect::route('residents.index');
     }
 

@@ -52,4 +52,11 @@
         {
             // TODO: Implement all() method.
         }
+
+        public function firstOrCreate($data)
+        {
+            $unit = $this->unitModel->firstOrCreate($data);
+
+            return $unit;
+        }
     }

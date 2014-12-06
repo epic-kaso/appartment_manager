@@ -33,7 +33,9 @@
 
         public function delete($id)
         {
-            // TODO: Implement delete() method.
+            $tenant = $this->tenantModel->findOrFail($id);
+
+            return $tenant->packout();
         }
 
         public function update($id, $data)

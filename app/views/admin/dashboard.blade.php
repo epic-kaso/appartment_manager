@@ -44,18 +44,19 @@
 				</a>
 			</div>
 
-			<span class="text-muted">Manage Tenants</span> <hr/>
+			<span class="text-muted">Manage Residents</span>
+			<hr/>
 			<div>
 				<a href="{{ route('tenant.index') }}" class="menu-item-link">
 					<div class="menu-item">
 						<span class="fa fa-users"></span>
-						<h5>View Tenants</h5>
+						<h5>View Residents</h5>
 					</div>
 				</a>
 				<a href="{{ route('tenant.create') }}" class="menu-item-link">
 					<div class="menu-item">
 						<span class="fa fa-user"></span>
-						<h5>Add New Tenant</h5>
+						<h5>Add New Resident</h5>
 					</div>
 				</a>
 			</div>

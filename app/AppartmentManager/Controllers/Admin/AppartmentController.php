@@ -54,13 +54,19 @@ class AppartmentController extends BaseController
      *
      * @return Response
      */
-    public function index()
+    public function getIndex($slug = NULL)
     {
+        //dd($slug);
         $limit = \Input::get('size', 20);
-        $appartments = $this->appartmentRepository->all($limit);
+        $blocks = $this->appartmentRepository->blocks();
         $admin = $this->adminRepository->getCurrentAdmin();
 
-        return \View::make('admin.appartment.index', compact('appartments', 'admin'))
+        $appartments =
+            empty($slug) ?
+                $this->appartmentRepository->all($limit) :
+                $this->appartmentRepository->allForSlug($slug, $limit);
+
+        return \View::make('admin.appartment.index', compact('appartments', 'admin', 'blocks'))
             ->with('message', \Session::get('message'));
     }
 
@@ -70,7 +76,7 @@ class AppartmentController extends BaseController
      *
      * @return Response
      */
-    public function create()
+    public function getCreate()
     {
         $admin = $this->adminRepository->getCurrentAdmin();
 
@@ -83,9 +89,10 @@ class AppartmentController extends BaseController
      *
      * @return Response
      */
-    public function store()
+    public function postCreate()
     {
-        $data = \Input::only(['block_name', 'block_size']);
+        $data = \Input::only(['block_name', 'block_size', 'unit_prefix']);
+
         $validation = $this->appartmentValidator->validate($data);
 
         if ($validation->fails()) {
@@ -94,7 +101,7 @@ class AppartmentController extends BaseController
 
         $this->appartmentCommand->execute($data);
 
-        return \Redirect::route('appartment.index')->withMessage('Created Successfully');
+        return \Redirect::action('AppartmentManager\Controllers\Admin\AppartmentController@getIndex')->withMessage('Created Successfully');
     }
 
 
@@ -104,7 +111,7 @@ class AppartmentController extends BaseController
      * @param  int $id
      * @return Response
      */
-    public function show($id)
+    public function getShow($id)
     {
         //
     }
@@ -116,7 +123,7 @@ class AppartmentController extends BaseController
      * @param  int $id
      * @return Response
      */
-    public function edit($id)
+    public function getEdit($id)
     {
         //
     }
@@ -128,7 +135,7 @@ class AppartmentController extends BaseController
      * @param  int $id
      * @return Response
      */
-    public function update($id)
+    public function postUpdate($id)
     {
         //
     }
@@ -140,9 +147,11 @@ class AppartmentController extends BaseController
      * @param  int $id
      * @return Response
      */
-    public function destroy($id)
+    public function postDestroy($id)
     {
-        //
+        $this->appartmentRepository->delete($id);
+
+        return \Redirect::action('AppartmentManager\Controllers\Admin\AppartmentController@getIndex')->withMessage('Deleted Successfully');
     }
 
 

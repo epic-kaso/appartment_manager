@@ -11,28 +11,41 @@
 						<input type="text" placeholder="search" class="form-control form-inline"/>
 						<input type="submit" class="btn form-inline" value="Search"/>
 					</form>
-					<a href="{{ route('appartment.index') }}" class="btn btn-default pull-right">All</a>
+					<a href="{{ action('AppartmentManager\Controllers\Admin\AppartmentController@getIndex') }}"
+					   class="btn btn-default pull-right">All</a>
 
 				</div>
 		    </div>
 		</div>
 
 		<div class="row">
+			@include('Layouts.Partials.info')
 		    <div class="col-sm-6">
-		    	{{ Form::open(['url' => route('appartment.store')]) }}
+				{{ Form::open(['url' => action('AppartmentManager\Controllers\Admin\AppartmentController@postCreate')]) }}
 					<div class="form-group">
 						{{ Form::label('Block Name') }}
 						{{ Form::text('block_name',null,['class'=>'form-control']) }}
 					</div>
 
-
-					<div class="form-group">
-						{{ Form::label('Block Size (Number of Units in Block)') }}
-						{{ Form::text('block_size',null,['class'=>'form-control']) }}
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="form-group">
+							{{ Form::label('Units Prefix)') }}
+							{{ Form::text('unit_prefix',null,['class'=>'form-control','placeholder'=>'eg. A']) }}
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="form-group">
+							{{ Form::label('Block Size') }}
+							{{ Form::text('block_size',null,['class'=>'form-control','placeholder'=>'Number of Units in Block']) }}
+						</div>
 					</div>
 
+					</div>
+
+
 					<div class="form-group">
-						{{ Form::submit('Create Appartment',['class'=>'btn btn-primary']) }}
+						{{ Form::submit('Create Appartments',['class'=>'btn btn-primary']) }}
 					</div>
 
 				{{ Form::close() }}

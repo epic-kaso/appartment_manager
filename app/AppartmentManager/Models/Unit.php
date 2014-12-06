@@ -13,4 +13,9 @@
     {
 
         protected $guarded = ['id'];
+
+        public function block()
+        {
+            return $this->belongsTo('AppartmentManager\Models\Block');
+        }
     }

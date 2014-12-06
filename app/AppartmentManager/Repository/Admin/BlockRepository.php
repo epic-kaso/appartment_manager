@@ -27,6 +27,15 @@
             $this->blockModel = $blockModel;
         }
 
+        public function firstOrCreate($data = [])
+        {
+            $block = $this->blockModel->firstOrCreate(['name' => $data['name']]);
+
+            $block->size = $block->size + $data['size'];
+
+            return $block;
+        }
+
         public function create($data = [])
         {
             $block = $this->blockModel->create($data);

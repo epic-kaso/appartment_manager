@@ -145,7 +145,9 @@ class TenantController extends BaseController
      */
     public function destroy($id)
     {
-        //
+        $this->tenantRepository->delete($id);
+
+        return \Redirect::route('tenant.index')->withMessage('Deleted Successfully');
     }
 
 

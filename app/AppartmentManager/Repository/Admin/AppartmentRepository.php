@@ -10,6 +10,7 @@
 
 
     use AppartmentManager\Models\Appartment;
+    use AppartmentManager\Models\Block;
     use AppartmentManager\Repository\CrudRepository;
 
     class AppartmentRepository implements CrudRepository
@@ -84,5 +85,27 @@
                 ->where('appartment_id', $appartment_id)
                 ->with('tenant')
                 ->first();
+        }
+
+        public function blocks()
+        {
+            return Block::get();
+        }
+
+        public function allForSlug($slug, $limit)
+        {
+            $block_id = $this->getBlockIdForSlug($slug);
+
+            return $this->appartmentModel
+                ->whereHas('unit', function ($query) use ($block_id) {
+                    $query->where('block_id', $block_id);
+                })
+                ->with(['unit', 'tenant'])
+                ->simplePaginate($limit);
+        }
+
+        private function getBlockIdForSlug($slug)
+        {
+            return Block::where('slug', $slug)->firstOrFail()->id;
         }
     }

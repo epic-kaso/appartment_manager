@@ -18,7 +18,8 @@
         {
             return [
                 'block_name' => 'required',
-                'block_size' => 'required|integer'
+                'block_size'  => 'required|integer',
+                'unit_prefix' => 'alpha'
             ];
         }
     }

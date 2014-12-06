@@ -1,4 +1,5 @@
-
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-ujs.js"></script>
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 <script src="/js/angular.min.js"></script>
@@ -22,7 +23,5 @@
     ga('create', 'UA-XXXXX-X');
     ga('send', 'pageview');
 </script>
-
-
 </body>
 </html>

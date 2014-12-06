@@ -104,3 +104,17 @@ a.menu-item-link:hover {
 .profile .form-group span {
     font-size: 1.8em;
 }
+
+.action-td {
+    position: relative;
+}
+
+.action-td:hover .fly-out {
+    display: block !important;
+}
+
+.fly-out {
+    position: absolute;
+    display: none;
+    z-index: 100;
+}

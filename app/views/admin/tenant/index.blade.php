@@ -6,7 +6,7 @@
 	<div class="container">
 		@include('Layouts.Partials.info')
 		<div class="row">
-		    <h1>Tenants</h1>
+			<h1>Residents</h1>
 		    <div class="table-menu">
 		        <span class="btn btn-default">Sort</span>
                 <form role="form" class="form-inline" style="display: inline-block">
@@ -28,6 +28,7 @@
             		            <td>Phone</td>
             		            <td>Email</td>
             		            <td>Appartment</td>
+								<td>..</td>
             		        </tr>
             		    </thead>
 
@@ -41,6 +42,12 @@
             		                    <td>{{ $tenant->phone }}</td>
             		                    <td>{{ $tenant->email }}</td>
             		                    <td>{{ $tenant->appartment->appartment_id }}</td>
+										<td>
+											<a class="btn btn-default btn-xs" href=/"">Edit</a> &nbsp;
+											<a href="{{ route('tenant.destroy',[$tenant->id]) }}"
+											   class="btn btn-danger btn-xs" data-method="delete" rel="nofollow"
+											   data-confirm="Are you sure?">Delete</a>
+										</td>
             		                </tr>
             		            @endforeach
             		        </tbody>

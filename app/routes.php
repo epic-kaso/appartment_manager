@@ -40,25 +40,47 @@
 
 
     //Admin Categories CRUD routes
-    Route::resource('admin', 'AppartmentManager\Controllers\Admin\AdminController');
+    Route::resource(
+        'admin',
+        'AppartmentManager\Controllers\Admin\AdminController'
+    );
     //Tenant Auth Controller
-    Route::controller('admin/auth', 'AppartmentManager\Controllers\Admin\Auth\AuthController');
+    Route::controller(
+        'admin/auth',
+        'AppartmentManager\Controllers\Admin\Auth\AuthController'
+    );
     //Admin Complaints
-    Route::resource('admin-complaints', 'AppartmentManager\Controllers\Admin\AdminComplaintsController');
+    Route::resource(
+        'admin-complaints',
+        'AppartmentManager\Controllers\Admin\AdminComplaintsController'
+    );
 
     //appartment CRUD routes
-    Route::resource('appartment', 'AppartmentManager\Controllers\Admin\AppartmentController');
-    //Tenant CRUD routes
-    Route::resource('tenant', 'AppartmentManager\Controllers\Admin\TenantController');
+    Route::controller(
+        'appartment',
+        'AppartmentManager\Controllers\Admin\AppartmentController'
+    );
+    Route::get('appartment/{slug}',
+        [
+            'uses' => 'AppartmentManager\Controllers\Admin\AppartmentController@getIndex'
+        ]
+    );
 
+    //Tenant CRUD routes
+    Route::resource(
+        'tenant',
+        'AppartmentManager\Controllers\Admin\TenantController'
+    );
     //Complaints Categories CRUD routes
-    Route::resource('complaints/category', 'AppartmentManager\Controllers\Admin\ComplaintsCategoryController');
+    Route::resource(
+        'complaints/category',
+        'AppartmentManager\Controllers\Admin\ComplaintsCategoryController'
+    );
 
     Route::controller(
         'admin-dashboard/profile',
         'AppartmentManager\Controllers\Admin\ProfileController'
     );
-
     //Tenant Dashboard CRUD routes
     Route::resource(
         'admin-dashboard',
