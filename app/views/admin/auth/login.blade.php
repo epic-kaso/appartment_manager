@@ -3,7 +3,7 @@
 	<div class="container">
 		<div class="row">
 			@include('Layouts.Partials.info')
-		    <div class="col-sm-4 col-sm-offset-4 text-center">
+			<div class="col-md-4 col-md-offset-4 col-xs-8 col-xs-offset-2  text-center">
 		    <div>
 				<img src="{{ asset('img/LOGO.gif') }}" class="img-responsive" alt="company logo" />
 			</div>
