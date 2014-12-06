@@ -41,16 +41,14 @@
 
         public function execute($data = [])
         {
-            return $this->loginTenant($data['appartment_id'], $data['password']);
+            return $this->loginTenant($data['email'], $data['password']);
         }
 
-        public function loginTenant($appartment_id, $password)
+        public function loginTenant($email, $password)
         {
-            $appartment = $this->appartmentRepository
-                ->getAppartmentByAppartmentID($appartment_id);
-            $tenant = $appartment->tenant;
+            $tenant = $this->tenantRepository->getTenantByEmail($email);
 
-            if ($tenant->verifyPassword($password)) {
+            if (!empty($tenant) && $tenant->verifyPassword($password)) {
                 return $this->persistTenant($tenant);
             } else {
                 throw new InvalidPasswordException('Invalid Password Supplied');

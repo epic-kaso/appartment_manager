@@ -12,7 +12,7 @@
                     <input type="text" placeholder="search" class="form-control form-inline"/>
                     <input type="submit" class="btn form-inline" value="Search"/>
                 </form>
-                <a href="{{ route('tenant-dashboard.complaints.create') }}" class="btn btn-primary pull-right">Create</a>
+				<a href="{{ route('residents.complaints.create') }}" class="btn btn-primary pull-right">Create</a>
 
 		    </div>
 		</div>

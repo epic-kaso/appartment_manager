@@ -7,10 +7,10 @@
 		    <div>
 		    	<img src="{{ asset('img/LOGO.gif') }}" class="img-responsive" alt="company logo" />
 		    </div>
-		    <h1>Tenant Login</h1>
+				<h1>Resident Login</h1>
 		    	{{ Form::open() }}
 					<div class="form-group">
-						{{ Form::text('appartment_id',null,['class'=>'form-control','placeholder' => 'APPARTMENT ID']) }}
+						{{ Form::text('email',null,['class'=>'form-control','placeholder' => 'EMAIL ADDRESS']) }}
 					</div>
 
 					<div class="form-group">

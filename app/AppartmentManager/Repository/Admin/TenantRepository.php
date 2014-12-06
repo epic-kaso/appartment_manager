@@ -72,4 +72,9 @@
         {
             \Session::forget('tenant_id');
         }
+
+        public function getTenantByEmail($email)
+        {
+            return $this->tenantModel->where('email', $email)->first();
+        }
     }

@@ -27,7 +27,6 @@ class AuthController extends \Controller
         TenantRepository $tenantRepository
     )
     {
-
         $this->authCommand = $authCommand;
         $this->authValidator = $authValidator;
         $this->tenantRepository = $tenantRepository;
@@ -51,7 +50,7 @@ class AuthController extends \Controller
      */
     public function postLogin()
     {
-        $data = \Input::only(['appartment_id', 'password']);
+        $data = \Input::only(['email', 'password']);
 
         $validation = $this->authValidator->validate($data);
 
@@ -67,7 +66,7 @@ class AuthController extends \Controller
                 ->withInput();
         }
 
-        return \Redirect::route('tenant-dashboard.index');
+        return \Redirect::route('residents.index');
     }
 
 
@@ -117,7 +116,7 @@ class AuthController extends \Controller
     {
         $this->tenantRepository->unSetCurrentTenant();
 
-        return \Redirect::route('tenant-dashboard.index');
+        return \Redirect::route('residents.index');
     }
 
 }

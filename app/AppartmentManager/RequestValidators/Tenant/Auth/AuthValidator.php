@@ -17,7 +17,7 @@
         function getRules()
         {
             return [
-                'appartment_id' => 'required|exists:appartments',
+                'email' => 'required|exists:tenants',
                 'password'      => 'required'
             ];
         }

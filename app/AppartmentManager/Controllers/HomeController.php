@@ -18,7 +18,7 @@ class HomeController extends BaseController
 
     public function index()
     {
-        return \Redirect::route('tenant-dashboard.index');
+        return \Redirect::route('residents.index');
     }
 
 }

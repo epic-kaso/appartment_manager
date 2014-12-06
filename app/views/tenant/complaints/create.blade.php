@@ -11,7 +11,7 @@
 		<div class="row">
 			@include('Layouts.Partials.info')
 		    <div class="col-sm-6">
-		    	{{ Form::open(['url' => route('tenant-dashboard.complaints.store')]) }}
+				{{ Form::open(['url' => route('residents.complaints.store')]) }}
 					<div class="form-group">
 						{{ Form::textarea('complaint_body',null,
 						['class'=>'form-control','rows'=>'10','placeholder'=>'WRITE YOUR COMPLAINT HERE']) }}
