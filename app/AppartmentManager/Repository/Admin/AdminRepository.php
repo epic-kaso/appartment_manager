@@ -120,6 +120,9 @@
                     'complaints_category'
                 ])
                 ->distinct()
+                ->whereHas('complaint', function ($q) {
+                    $q->where('is_handled', FALSE);
+                })
                 ->whereHas('complaints_category',
                     function ($q) use ($value) {
                         if (isset($value) && count($value) > 0) {
