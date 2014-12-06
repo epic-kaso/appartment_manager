@@ -42,6 +42,18 @@
             $this->appartmentModel->findOrFail($id)->update($data);
         }
 
+        public function allWithCondition($limit = 20, $condition, $value)
+        {
+            if (is_null($value)) {
+                return $this->all($limit);
+            }
+
+            return $this->appartmentModel
+                ->where($condition, $value)
+                ->with(['unit', 'tenant'])
+                ->simplePaginate($limit);
+        }
+
         public function all($limit = 20)
         {
             return $this->appartmentModel->with(['unit', 'tenant'])->simplePaginate($limit);
@@ -90,6 +102,23 @@
         public function blocks()
         {
             return Block::get();
+        }
+
+        public function allForSlugWithCondition($slug, $limit, $condition, $value)
+        {
+            if (is_null($value)) {
+                return $this->allForSlug($slug, $limit);
+            }
+
+            $block_id = $this->getBlockIdForSlug($slug);
+
+            return $this->appartmentModel
+                ->whereHas('unit', function ($query) use ($block_id) {
+                    $query->where('block_id', $block_id);
+                })
+                ->where($condition, $value)
+                ->with(['unit', 'tenant'])
+                ->simplePaginate($limit);
         }
 
         public function allForSlug($slug, $limit)

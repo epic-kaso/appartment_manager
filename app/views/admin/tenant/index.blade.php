@@ -13,35 +13,30 @@
                     <input type="text" placeholder="search" class="form-control form-inline"/>
                     <input type="submit" class="btn form-inline" value="Search"/>
                 </form>
-                <a href="{{ route('tenant.create') }}" class="btn btn-primary pull-right">Create</a>
+				<a href="{{ route('tenant.create') }}" class="btn btn-primary btn-xs pull-right">Add A New Resident</a>
 
 		    </div>
 		</div>
 
 		<div class="row">
-		    <table class="table table-striped table-bordered">
-            		    <thead>
-            		        <tr>
-            		            <td>S/N</td>
-            		            <td>Last Name</td>
-            		            <td>First Name</td>
-            		            <td>Phone</td>
-            		            <td>Email</td>
-            		            <td>Appartment</td>
-								<td>..</td>
-            		        </tr>
-            		    </thead>
-
+			<table class="table table-striped">
             		    @if(isset($tenants) && !empty($tenants))
             		        <tbody>
+							<?php $index = 0 ?>
             		            @foreach($tenants as $tenant)
+									<?php $index++; ?>
             		                <tr>
-            		                    <td>{{ $tenant->id }}</td>
-            		                    <td>{{ $tenant->last_name }}</td>
-            		                    <td>{{ $tenant->first_name }}</td>
-            		                    <td>{{ $tenant->phone }}</td>
-            		                    <td>{{ $tenant->email }}</td>
-            		                    <td>{{ $tenant->appartment->appartment_id }}</td>
+										<td>{{ $index }}</td>
+										<td>
+											<span>{{ $tenant->last_name }}</span>
+											<span>{{ $tenant->first_name }}</span><br/>
+											{{ $tenant->phone }},<br/>
+											{{ $tenant->email }}
+										</td>
+										<td>
+											<label>Appartment: </label><br/>
+											{{ $tenant->appartment->full_name }}
+										</td>
 										<td>
 											<a class="btn btn-default btn-xs" href=/"">Edit</a> &nbsp;
 											<a href="{{ route('tenant.destroy',[$tenant->id]) }}"

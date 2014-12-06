@@ -18,7 +18,7 @@
 		</div>
 
 		<div class="row">
-		    <table class="table table-striped table-bordered">
+			<table class="table table-striped">
             		    <thead>
             		        <tr>
             		            <td>S/N</td>

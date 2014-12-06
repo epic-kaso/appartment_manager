@@ -39,5 +39,10 @@
 
         }
 
+        public function getFullNameAttribute()
+        {
+            return "{$this->unit->block->name} {$this->unit->name}";
+        }
+
 
     }

@@ -12,37 +12,29 @@
                     <input type="text" placeholder="search" class="form-control form-inline"/>
                     <input type="submit" class="btn form-inline" value="Search"/>
                 </form>
-				<a href="{{ route('residents.complaints.create') }}" class="btn btn-primary pull-right">Create</a>
+				<a href="{{ route('residents.complaints.create') }}" class="btn btn-primary pull-right">Make A
+					Complaint</a>
 
 		    </div>
 		</div>
 
 		<div class="row">
-		    <table class="table table-striped table-bordered">
-            		    <thead>
-            		        <tr>
-            		            <td>S/N</td>
-            		            <td>Complaint</td>
-            		            <td>Category</td>
-            		            <td>Status</td>
-            		        </tr>
-            		    </thead>
-
+			<table class="table table-striped">
             		    @if(isset($complaints) && !empty($complaints))
-            		        <tbody>
+					<ul class="list-group">
             		            @foreach($complaints as $complaint)
-            		                <tr>
-            		                    <td>{{ $complaint->id }}</td>
-            		                    <td><p>{{ $complaint->description }}</p></td>
-            		                    <td>{{ $complaint->present('complaint_categories') }}</td>
-            		                    <td>
-            		                        <span class="label label-{{ $complaint->is_handled ? 'success': 'warning' }}">
-            		                            {{ $complaint->is_handled ? 'Handled': 'Not Handled' }}
-            		                        </span>
-            		                    </td>
-            		                </tr>
+							<li class="list-group-item">
+								<span class="pull-right">{{ $complaint->created_at->diffForHumans() }}</span>
+
+								<div>
+									<p>{{ $complaint->description }}</p>
+								</div>
+								<div>
+									{{ $complaint->present('complaint_categories',true) }}
+								</div>
+							</li>
             		            @endforeach
-            		        </tbody>
+					</ul>
             		    @else
             		        <tbody>
                                     <tr class="text-center">

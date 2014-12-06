@@ -30,13 +30,15 @@
 
 		    <span class="text-muted">Manage Appartments</span> <hr/>
 		    <div>
-		    	<a href="{{ route('appartment.index') }}" class="menu-item-link">
+				<a href="{{ action('AppartmentManager\Controllers\Admin\AppartmentController@getIndex') }}"
+				   class="menu-item-link">
 					<div class="menu-item">
 						<span class="fa fa-building-o"></span>
 						<h5>View Appartments</h5>
 					</div>
 				</a>
-				<a href="{{ route('appartment.create') }}" class="menu-item-link">
+				<a href="{{ action('AppartmentManager\Controllers\Admin\AppartmentController@getCreate') }}"
+				   class="menu-item-link">
 					<div class="menu-item">
 						<span class="fa fa-home"></span>
 						<h5>Add New Appartment</h5>

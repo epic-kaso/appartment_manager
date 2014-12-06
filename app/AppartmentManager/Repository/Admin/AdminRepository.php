@@ -108,9 +108,9 @@
         {
             $admin->load('complaintsCategories');
 
-            $complaintsCategories = $admin->complaintsCategories;
-            $value = $complaintsCategories;
-            // dd($value);
+            $complaintsCategories = $admin->complaintsCategories()->get()->lists('id');
+            $value = $complaintsCategories;//->toArray();
+            //dd($value);
 
             $response = ComplaintComplaintsCategory::with(
                 [
@@ -119,15 +119,35 @@
                     'complaint.tenant.appartment',
                     'complaints_category'
                 ])
-                ->whereHas('complaints_category', function ($q) use ($value) {
-                    if (isset($value) && count($value) > 0) {
-                        foreach ($value as $v) {
-                            $q->orWhere('id', $v->id);
+                ->distinct()
+                ->whereHas('complaints_category',
+                    function ($q) use ($value) {
+                        if (isset($value) && count($value) > 0) {
+                            $q->whereIn('id', $value)
+                                ->distinct();
                         }
-                    }
-                })->simplePaginate(20);
+                    })
+                ->simplePaginate(20);
+            $prev = NULL;
+            $removed = 0;
 
-            return $response;
+            $collection = $response->getCollection();
+
+            foreach ($collection as $key => $obj) {
+                if (!empty($prev)) {
+                    if ($obj->complaint->id == $prev->complaint->id) {
+                        $collection
+                            ->forget($key);
+                        $removed++;
+                    } else {
+                        $prev = $obj;
+                    }
+                } else {
+                    $prev = $obj;
+                }
+            }
+
+            return $collection;
         }
 
         public function getAdminsForComplaint(Complaint $complaint)

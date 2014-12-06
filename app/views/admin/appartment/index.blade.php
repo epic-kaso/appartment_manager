@@ -25,8 +25,8 @@
 			<div class="col-sm-8">
 				<div class="table-menu">
 					<div class="btn-group">
-						<a class="btn btn-default" href="/">Vacant</a>
-						<a class="btn btn-default" href="/">Occupied</a>
+						<a class="btn btn-default" href="{{ URL::current() }}?sort=vacant">Vacant</a>
+						<a class="btn btn-default" href="{{ URL::current() }}?sort=occupied">Occupied</a>
 					</div>
 					<form role="form" class="form-inline" style="display: inline-block">
 						<input type="text" placeholder="search" class="form-control form-inline"/>

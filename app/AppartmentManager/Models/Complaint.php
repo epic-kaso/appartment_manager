@@ -39,17 +39,33 @@
                 'AppartmentManager\Models\ComplaintsCategory');
         }
 
-        public function present($attr)
+        public function present($attr, $nobreaks = FALSE)
         {
             $cats = ComplaintComplaintsCategory::where('complaint_id', $this->id)
                 ->with('complaints_category')
                 ->get();
             $result = '';
+            $prefix = $nobreaks == FALSE ? '<br/>' : '&nbsp;&nbsp;';
             //dd($cats->toJson());
             foreach ($cats as $cat) {
-                $result .= "<label class='label label-info'>{$cat->complaints_category->name}</label><br/>";
+                $result .= "<label class='label label-default'>{$cat->complaints_category->name}</label>$prefix";
             }
 
             return $result;
+        }
+
+        public function clearAndDelete()
+        {
+            $com_cats = $this->complaint_complaints_category()->get();
+            foreach ($com_cats as $c) {
+                $c->delete();
+            }
+
+            $this->delete();
+        }
+
+        public function complaint_complaints_category()
+        {
+            return $this->hasMany('AppartmentManager\Models\ComplaintComplaintsCategory');
         }
     }

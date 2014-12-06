@@ -56,15 +56,22 @@ class AppartmentController extends BaseController
      */
     public function getIndex($slug = NULL)
     {
-        //dd($slug);
+        $sort = \Input::get('sort', NULL);
+        $is_vacant = NULL;
+        if (!is_null($sort)) {
+            $is_vacant = $sort == 'vacant' ? TRUE : FALSE;
+        }
         $limit = \Input::get('size', 20);
         $blocks = $this->appartmentRepository->blocks();
         $admin = $this->adminRepository->getCurrentAdmin();
 
         $appartments =
             empty($slug) ?
-                $this->appartmentRepository->all($limit) :
-                $this->appartmentRepository->allForSlug($slug, $limit);
+                $this->appartmentRepository->allWithCondition($limit, 'is_vacant', $is_vacant) :
+                $this->appartmentRepository->allForSlugWithCondition($slug, $limit, 'is_vacant', $is_vacant);
+
+        $appartments->setBaseUrl(\URL::current());
+
 
         return \View::make('admin.appartment.index', compact('appartments', 'admin', 'blocks'))
             ->with('message', \Session::get('message'));

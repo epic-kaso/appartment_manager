@@ -12,7 +12,7 @@
                 <a href="{{ action('AppartmentManager\Controllers\Admin\AppartmentController@getIndex') }}">Appartments</a>
             </li>
             <li><a href="{{ route('tenant.index') }}">Residents</a></li>
-            <li><a href="{{ route('complaints.category.index') }}">Complaints-Categories</a></li>
+            <li><a href="{{ route('complaints.category.index') }}">Complaints Categories</a></li>
             <li><a href="{{ route('admin.index') }}">Admin</a></li>
         </ul>
 
