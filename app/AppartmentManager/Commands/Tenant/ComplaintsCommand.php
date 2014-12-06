@@ -36,7 +36,9 @@
                     'category_ids'   => $data['category_ids'],
                     'complaint_body' => $data['complaint_body']
                 ]);
-            \Event::fire(TenantCreatesComplaint::class, ['complaint_id' => $complaint->id]);
+            \Event::fire(TenantCreatesComplaint::class,
+                ['complaint_id' => $complaint->id]
+            );
         }
 
         private function fetchCategoryIds($data = [])
